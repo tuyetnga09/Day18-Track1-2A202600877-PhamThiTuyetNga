@@ -24,7 +24,7 @@
 
 > 💡 Mở `day18-present-board.html` trước — đây là trang tổng. Hai file phải nằm cạnh nhau thì phần nhúng Cách C mới hiện. Nếu trình duyệt chặn file cục bộ, dùng nút *"Mở prototype ở tab mới"* trong board.
 
-**Build-up chain:** Day 16 artifact 02 → ✍️ _(dán link)_ · Present board → `day18-present-board.html`
+**Build-up chain:** Day 16 artifact 02 (JTBD + pain mapping) → Present board Day 18 → `day18-present-board.html`
 
 ---
 
@@ -34,7 +34,7 @@
 - **Current workflow:** Người học (hoặc giáo viên) tự xem lại bài, đếm câu sai, tự đoán mình yếu chủ đề nào, rồi tự tìm tài liệu ôn — thủ công, dễ bỏ sót, khó xếp ưu tiên.
 - **Pain step đau nhất:** Bước *“từ danh sách câu sai → ra được chủ đề yếu + kế hoạch ôn cụ thể”*. Tốn công, hay làm qua loa nên ôn không trúng.
 - **AI leverage point:** AI đọc các câu sai → nhóm theo chủ đề/khái niệm → xếp ưu tiên → sinh kế hoạch ôn. Con người chỉ xem lại và chỉnh.
-- **Điểm còn mơ hồ nhất:** ✍️ _(VD: user chính là người học tự học hay giáo viên? môn nào? — chốt theo dự án thật)_
+- **Điểm còn mơ hồ nhất:** Chốt **user là người học tự ôn** (HS cấp 3 / SV năm đầu), môn có chủ đề tách bạch như **Toán / Tiếng Anh** — vì câu hỏi gắn được vào khái niệm rõ ràng thì AI mới nhóm “chỗ yếu” đáng tin. Giáo viên chỉ là user phụ (xem tổng hợp lớp), không phải đối tượng test chính.
 
 _Tự kiểm 3 câu: bỏ AI đi job vẫn còn (✔) · pain nằm đúng 1 bước (✔) · hypothesis bám đúng lát cắt (✔)._
 
@@ -109,7 +109,7 @@ _Tự kiểm 3 câu: bỏ AI đi job vẫn còn (✔) · pain nằm đúng 1 bư
 
 - **Mở khi present:** Board này + prototype Cách C (tab riêng).
 - **Câu mở đầu 30s:** *“Em test một niềm tin: người học chỉ làm theo kế hoạch ôn của AI khi AI chỉ rõ vì sao mình bị coi là yếu — nên em thử 3 cách rẻ để kiểm tra điều đó.”*
-- **Muốn lớp phản biện vào đâu:** ✍️ _(bạn chọn)_
+- **Muốn lớp phản biện vào đâu:** Phần **lời giải thích “vì sao bị coi là yếu”** ở Cách C — việc truy ngược về đúng các câu đã làm sai (vd câu 2, 5, 9) đã đủ để người học tin và làm theo chưa, hay cần thêm bằng chứng/độ tin gì.
 - **2 câu hỏi cho lớp:** (1) Lý do “dựa trên câu 2, 5, 9” đã đủ để tin chưa? (2) Nên đầu tư tiếp cách nào để học được nhiều nhất với chi phí thấp?
 
 **Sau khi present** ✍️ _(điền sau buổi present):_ phản biện quan trọng nhất · cách bị hỏi nhiều nhất · cần chỉnh gì · giữ nguyên gì.
@@ -124,6 +124,7 @@ _Tự kiểm 3 câu: bỏ AI đi job vẫn còn (✔) · pain nằm đúng 1 bư
 - [x] Nghĩ ra 3 cách rẻ hơn để test cùng hypothesis
 - [x] Làm artifact cho cả 3 cách (A storyboard · B WoZ · C prototype)
 - [x] Gom thành present board (`day18-present-board.html`)
-- [ ] Điền thông tin học viên + link, và present xong _(điền nốt chỗ ✍️)_
+- [x] Điền thông tin học viên + chốt các điểm còn mơ hồ
+- [ ] Present trước lớp → điền phần **“Sau khi present”** (mục 6) bằng phản hồi thật
 
 > **Ghi chú trung thực (theo PDF):** các quiz, câu trả lời và phản ứng người dùng trong repo này là **dữ liệu mẫu / nháp lý luận** để present được — *chưa phải evidence thật*. Các chỗ ✍️ là phần bạn thay bằng dự án + dữ liệu thật của mình. AI không bịa user/evidence thay bạn.
