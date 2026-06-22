@@ -9,7 +9,7 @@
 | Phạm Thị Tuyết Nga | 2A202600877 | **PM** — điều phối, present |
 | Nguyễn Văn Đoan | 2A202600795 | Dev — dựng prototype (Cách C) |
 | Đỗ Trung Kiên | 2A202600751 | Design — storyboard, UI (Cách A) |
-| Nguyễn Đông Anh | ✍️ _cần xác nhận (trùng mã PM)_ | Research — phỏng vấn, vận hành WoZ (Cách B) |
+| Nguyễn Đông Anh |2A202600760| Research — phỏng vấn, vận hành WoZ (Cách B) |
 
 **Dự án:** Ôn Đúng Chỗ Yếu — AI gợi ý kế hoạch ôn từ câu quiz sai &nbsp;·&nbsp; **Vai trò của bạn:** PM (điều phối, present)
 
