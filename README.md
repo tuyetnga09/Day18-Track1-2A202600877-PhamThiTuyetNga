@@ -1,4 +1,4 @@
-# Day 17 — Main Studio · Ôn Đúng Chỗ Yếu
+# Day 18 — Main Studio · Ôn Đúng Chỗ Yếu
 
 > AI đọc các câu làm sai trong một bài quiz → đề xuất kế hoạch ôn đúng phần yếu.
 
@@ -19,12 +19,12 @@
 
 | File | Là gì | Cách mở |
 |---|---|---|
-| [`day17-present-board.html`](day17-present-board.html) | Present board đầy đủ 6 phần + artifact Cách A / B / C | Đúp chuột để mở; nút **In / Lưu PDF** để xuất bản nộp |
+| [`day18-present-board.html`](day18-present-board.html) | Present board đầy đủ 6 phần + artifact Cách A / B / C | Đúp chuột để mở; nút **In / Lưu PDF** để xuất bản nộp |
 | [`on-dung-cho-yeu-prototype.html`](on-dung-cho-yeu-prototype.html) | Prototype Cách C (clickable, 3 màn hình + 2 quiz mẫu) | Được nhúng trong board; cần để **cùng thư mục** với board |
 
-> 💡 Mở `day17-present-board.html` trước — đây là trang tổng. Hai file phải nằm cạnh nhau thì phần nhúng Cách C mới hiện. Nếu trình duyệt chặn file cục bộ, dùng nút *"Mở prototype ở tab mới"* trong board.
+> 💡 Mở `day18-present-board.html` trước — đây là trang tổng. Hai file phải nằm cạnh nhau thì phần nhúng Cách C mới hiện. Nếu trình duyệt chặn file cục bộ, dùng nút *"Mở prototype ở tab mới"* trong board.
 
-**Build-up chain:** Day 16 artifact 02 → ✍️ _(dán link)_ · Present board → `day17-present-board.html`
+**Build-up chain:** Day 16 artifact 02 → ✍️ _(dán link)_ · Present board → `day18-present-board.html`
 
 ---
 
@@ -66,7 +66,7 @@ _Tự kiểm 3 câu: bỏ AI đi job vẫn còn (✔) · pain nằm đúng 1 bư
 | Vì sao rẻ hơn | 1–2 giờ vẽ; không code, không cần đề thật |
 | Học được gì | Phản ứng đầu tiên; chỗ gây nghi ngờ; ngôn ngữ người dùng mô tả “chỗ yếu” |
 | Chưa học được gì | Chưa biết khi tương tác thật (bấm, chỉnh) họ có tin không; chưa test luồng |
-| Artifact ở đâu | Trong `day17-present-board.html` (mục 4 · Cách A) |
+| Artifact ở đâu | Trong `day18-present-board.html` (mục 4 · Cách A) |
 
 ### Cách B — Wizard-of-Oz “AI giả lập qua tin nhắn”
 
@@ -78,7 +78,7 @@ _Tự kiểm 3 câu: bỏ AI đi job vẫn còn (✔) · pain nằm đúng 1 bư
 | Vì sao rẻ hơn | Không build app, không cần ngân hàng đề; dùng kênh chat sẵn có |
 | Học được gì | Có chịu gửi input không; chất lượng kế hoạch cần đạt mức nào để họ tin + làm theo |
 | Chưa học được gì | Chưa test UI/luồng bấm; không scale; phụ thuộc làm tay |
-| Artifact ở đâu | Trong `day17-present-board.html` (mục 4 · Cách B) |
+| Artifact ở đâu | Trong `day18-present-board.html` (mục 4 · Cách B) |
 
 ### Cách C — Clickable prototype “Ôn Đúng Chỗ Yếu”
 
@@ -123,7 +123,7 @@ _Tự kiểm 3 câu: bỏ AI đi job vẫn còn (✔) · pain nằm đúng 1 bư
 - [x] Ghi lại current approach
 - [x] Nghĩ ra 3 cách rẻ hơn để test cùng hypothesis
 - [x] Làm artifact cho cả 3 cách (A storyboard · B WoZ · C prototype)
-- [x] Gom thành present board (`day17-present-board.html`)
+- [x] Gom thành present board (`day18-present-board.html`)
 - [ ] Điền thông tin học viên + link, và present xong _(điền nốt chỗ ✍️)_
 
 > **Ghi chú trung thực (theo PDF):** các quiz, câu trả lời và phản ứng người dùng trong repo này là **dữ liệu mẫu / nháp lý luận** để present được — *chưa phải evidence thật*. Các chỗ ✍️ là phần bạn thay bằng dự án + dữ liệu thật của mình. AI không bịa user/evidence thay bạn.
