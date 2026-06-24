@@ -19,7 +19,7 @@
 
 | File | Là gì | Cách mở |
 |---|---|---|
-| [`on-dung-cho-yeu-prototype.html`](on-dung-cho-yeu-prototype.html) | **Prototype chính** — clickable, đủ vòng đời + flow map + rationale cards + demo path | Đúp chuột để mở trong trình duyệt; không cần internet, không cần backend |
+| [`day18-track1-prototype.html`](day18-track1-prototype.html) | **Prototype chính** — clickable, đủ vòng đời + flow map + rationale cards + demo path | Đúp chuột để mở trong trình duyệt; không cần internet, không cần backend |
 
 > 💡 Toàn bộ bài Day 18 nằm trong **một file HTML duy nhất**. Mở ra, dùng thanh điều hướng `00 → 07` ở trên để đi qua từng phần.
 
