@@ -32,6 +32,29 @@
   .secnav button.active{background:var(--teal);border-color:var(--teal);color:#fff}
   .secnav button.active .ix{color:#bfe0ec}
   .secnav button:hover:not(.active){border-color:var(--teal);color:var(--teal)}
+  /* Phase switch (Day 18 / Day 20) */
+  .phaseswitch{display:flex;gap:8px;margin:6px 0 2px}
+  .phaseswitch button{flex:1;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:11px 15px;cursor:pointer;text-align:left;transition:.15s}
+  .phaseswitch button b{font-size:13.5px;display:block;color:var(--ink)} .phaseswitch button span{font-size:11.5px;color:var(--muted)}
+  .phaseswitch button.active{background:var(--teal);border-color:var(--teal)} .phaseswitch button.active b{color:#fff} .phaseswitch button.active span{color:#cfe7ef}
+  /* Data tables (Day 20 canvases) */
+  .dtable{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+  .dtable th,.dtable td{border:1px solid var(--line);padding:11px 14px;text-align:left;vertical-align:top;line-height:1.6}
+  .dtable th{background:#eef4f6;font-weight:700;font-size:12px;color:var(--teal-d);line-height:1.4}
+  .dtable td:first-child{font-weight:600;width:32%;color:var(--ink)}
+  .dtable.three td:first-child{width:22%} .dtable.three td:nth-child(2){width:33%}
+  .dtable td b{color:var(--teal-d)}
+  .dtable tbody tr:nth-child(even){background:#fbfdfe}
+  /* Bullet list */
+  .blist{margin:10px 0;padding-left:6px;list-style:none}
+  .blist li{position:relative;padding-left:18px;margin:7px 0;font-size:13.5px;line-height:1.55}
+  .blist li::before{content:"";position:absolute;left:3px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  .blist.bad li::before{background:var(--red)}
+  .blist b{color:var(--teal-d)}
+  .lab{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.3px;white-space:nowrap}
+  .lab.keep{background:var(--green-l);color:var(--green)} .lab.simplify{background:var(--teal-l);color:var(--teal-d)} .lab.delay{background:var(--amber-l);color:var(--amber)} .lab.remove{background:var(--red-l);color:var(--red)}
+  .quote{border-left:3px solid var(--teal);background:var(--teal-l);border-radius:0 10px 10px 0;padding:11px 15px;font-size:13.5px;color:var(--teal-d);margin:10px 0}
+  .quote.bad{border-left-color:var(--red);background:var(--red-l);color:#a83b38}
   /* Card */
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
   .card h2{font-size:18px;margin:0 0 4px}
@@ -51,9 +74,9 @@
   /* Rationale card */
   .rcard{border:1px solid #e7d3a3;background:var(--amber-l);border-left:4px solid var(--amber);border-radius:11px;padding:13px 15px;margin:14px 0}
   .rcard .rh{font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--amber);margin-bottom:7px;display:flex;align-items:center;gap:6px}
-  .rcard dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:5px 12px;font-size:13px}
-  .rcard dt{font-weight:700;color:var(--ink);white-space:nowrap}
-  .rcard dd{margin:0;color:#5a4a23}
+  .rcard dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:9px 14px;font-size:13px}
+  .rcard dt{font-weight:700;color:var(--ink);white-space:nowrap;line-height:1.5}
+  .rcard dd{margin:0;color:#5a4a23;line-height:1.55}
   /* Agency badges */
   .ag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.3px}
   .ag.act{background:var(--green-l);color:var(--green)} .ag.ask{background:var(--amber-l);color:var(--amber)} .ag.dont{background:var(--red-l);color:var(--red)}
@@ -188,6 +211,7 @@
     <span class="pill"><span class="dot"></span>Prototype · dữ liệu mẫu</span>
   </header>
 
+  <div class="phaseswitch" id="phaseSwitch"></div>
   <nav class="secnav" id="secnav"></nav>
 
   <div id="screen"></div>
@@ -214,33 +238,19 @@ const QUIZZES = {
       {n:9, text:"They ___ each other since 2015.", concept:"Thì hiện tại hoàn thành", correct:false, you:"knew", key:"have known"},
       {n:10, text:"She ___ to the meeting yesterday.", concept:"Thì quá khứ đơn", correct:true, you:"didn't come", key:"didn't come"}
     ]
-  },
-  math: {
-    title: "Quiz Đại số 9 — Ôn giữa kỳ", unit: "8 câu",
-    questions: [
-      {n:1, text:"Phân tích thành nhân tử: x² − 9", concept:"Phân tích đa thức", correct:true,  you:"(x−3)(x+3)", key:"(x−3)(x+3)"},
-      {n:2, text:"Giải phương trình: x² − 5x + 6 = 0", concept:"Phương trình bậc hai", correct:false, you:"x = 1; x = 6", key:"x = 2; x = 3"},
-      {n:3, text:"Giải hệ: x + y = 5 ; x − y = 1", concept:"Hệ phương trình", correct:false, you:"x=2; y=3", key:"x=3; y=2"},
-      {n:4, text:"Hàm y = 2x − 1 cắt trục tung tại điểm?", concept:"Hàm số bậc nhất", correct:true, you:"(0; −1)", key:"(0; −1)"},
-      {n:5, text:"Số nghiệm thực của x² + 4 = 0 ?", concept:"Phương trình bậc hai", correct:false, you:"2 nghiệm", key:"Vô nghiệm trên ℝ"},
-      {n:6, text:"Giải phương trình: x² − 6x + 9 = 0", concept:"Phương trình bậc hai", correct:true, you:"x = 3 (nghiệm kép)", key:"x = 3 (nghiệm kép)"},
-      {n:7, text:"Tính Δ của x² − 4x + 4 = 0", concept:"Phương trình bậc hai", correct:false, you:"Δ = 4", key:"Δ = 0"},
-      {n:8, text:"Giải hệ: 2x + y = 7 ; x = 2", concept:"Hệ phương trình", correct:false, you:"y = 5", key:"y = 3"}
-    ]
   }
 };
 const CONCEPT_TIPS = {
   "Thì hiện tại hoàn thành":{act:"Ôn cấu trúc have/has + V3 và phân biệt với quá khứ đơn qua dấu hiệu since/for, already/yet, ever/never.",drill:"12 câu chia động từ + 5 câu phân biệt với quá khứ đơn"},
   "Mệnh đề quan hệ":{act:"Phân biệt who / which / that và trạng từ quan hệ where / when; khi nào lược bỏ được đại từ quan hệ.",drill:"8 câu nối câu dùng đại từ quan hệ"},
-  "Câu điều kiện loại 2":{act:"Công thức: If + quá khứ đơn (were cho mọi ngôi) → would + V. Dùng cho giả định không có thật ở hiện tại.",drill:"6 câu viết lại + 4 câu chọn đáp án"},
-  "Phương trình bậc hai":{act:"Ôn công thức nghiệm và biệt thức Δ; khi nào nhẩm nghiệm bằng Vi-ét; điều kiện có / vô nghiệm.",drill:"6 phương trình giải đầy đủ + 3 bài Vi-ét"},
-  "Hệ phương trình":{act:"Luyện phương pháp thế và cộng đại số; chọn phương pháp phù hợp cho từng dạng hệ.",drill:"5 hệ giải bằng cả 2 cách để so sánh"}
+  "Câu điều kiện loại 2":{act:"Công thức: If + quá khứ đơn (were cho mọi ngôi) → would + V. Dùng cho giả định không có thật ở hiện tại.",drill:"6 câu viết lại + 4 câu chọn đáp án"}
 };
 
 /* ============================================================
    TRẠNG THÁI ỨNG DỤNG
    ============================================================ */
 const APP = {
+  phase: "d18",
   section: "00",
   ob:   { step:1, allow:false },
   dur:  { subject:"english", stage:"pick", ask:null },   // stage: pick|submitted|loading|result ; ask: null|'low'|'on'(keep)|'off'(drop)
@@ -259,6 +269,22 @@ const SECTIONS = [
   {id:"06", label:"Design rationale"},
   {id:"07", label:"Demo path"}
 ];
+/* Day 20 — Retention, Engagement & Habit Loop (bổ sung, giữ nguyên Day 18) */
+const SECTIONS_D20 = [
+  {id:"r0",  ix:"00", label:"Điểm xuất phát"},
+  {id:"r1",  ix:"01", label:"Retention Canvas"},
+  {id:"r2",  ix:"02", label:"Core Action & Active User"},
+  {id:"r3",  ix:"03", label:"Frequency & Retention Metric"},
+  {id:"r4",  ix:"04", label:"Onboarding Audit"},
+  {id:"r5",  ix:"05", label:"Redesign Onboarding"},
+  {id:"r6",  ix:"06", label:"Before/After & Recovery"},
+  {id:"r7",  ix:"07", label:"Measurement Ladder"},
+  {id:"r8",  ix:"08", label:"North Star & Inputs"},
+  {id:"r9",  ix:"09", label:"Nature vs Nurture"},
+  {id:"r10", ix:"10", label:"Hook Review"},
+  {id:"r11", ix:"11", label:"Metric Tracking"},
+  {id:"r12", ix:"12", label:"Demo path (8′)"}
+];
 
 /* ============================================================
    HELPERS
@@ -268,7 +294,22 @@ function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").repl
 function cssesc(s){return s.replace(/"/g,'\\"');}
 let toastT;
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),2800);}
-function goto(id){APP.section=id;render();window.scrollTo({top:0,behavior:"smooth"});}
+function goto(id){ if(id.indexOf(":")>-1){const a=id.split(":");APP.phase=a[0];id=a[1];} APP.section=id; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+function setPhase(p){ APP.phase=p; APP.section=(p==="d20"?"r0":"00"); render(); window.scrollTo({top:0,behavior:"smooth"}); }
+
+/* Bảng dữ liệu cho các canvas Day 20 (nội dung là HTML tin cậy, không esc) */
+function tbl(headers, rows, cls){
+  let h='<table class="dtable'+(cls?(' '+cls):'')+'">';
+  if(headers){h+='<thead><tr>';headers.forEach(x=>h+='<th>'+x+'</th>');h+='</tr></thead>';}
+  h+='<tbody>';
+  rows.forEach(r=>{h+='<tr>';r.forEach(c=>h+='<td>'+c+'</td>');h+='</tr>';});
+  return h+'</tbody></table>';
+}
+function flow(items){
+  let h='<div class="flow">';
+  items.forEach((it,i)=>{h+='<div class="fbox'+(it.loop?' floop':'')+'"><b>'+it.b+'</b>'+(it.s?'<span>'+it.s+'</span>':'')+'</div>';if(i<items.length-1)h+='<div class="farrow">↓</div>';});
+  return h+'</div>';
+}
 
 /* Phân tích chỗ yếu */
 function analyze(subject){
@@ -298,8 +339,13 @@ function rcard(title, rows){
    RENDER NAV
    ============================================================ */
 function renderNav(){
-  document.getElementById("secnav").innerHTML = SECTIONS.map(s=>
-    '<button data-go="'+s.id+'" class="'+(APP.section===s.id?'active':'')+'"><span class="ix">'+s.id+'</span>'+esc(s.label)+'</button>'
+  document.getElementById("phaseSwitch").innerHTML =
+    '<button data-ph="d18" class="'+(APP.phase==="d18"?"active":"")+'"><b>Day 18 · Prototype</b><span>Trải nghiệm AI khi không hoàn hảo (00–07)</span></button>'+
+    '<button data-ph="d20" class="'+(APP.phase==="d20"?"active":"")+'"><b>Day 20 · Retention &amp; Habit</b><span>Use case → metric → onboarding → habit (00–12)</span></button>';
+  document.querySelectorAll('[data-ph]').forEach(b=>b.onclick=()=>setPhase(b.dataset.ph));
+  const secs = APP.phase==="d20" ? SECTIONS_D20 : SECTIONS;
+  document.getElementById("secnav").innerHTML = secs.map(s=>
+    '<button data-go="'+s.id+'" class="'+(APP.section===s.id?'active':'')+'"><span class="ix">'+(s.ix||s.id)+'</span>'+esc(s.label)+'</button>'
   ).join("");
   document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>goto(b.dataset.go));
 }
@@ -384,9 +430,6 @@ function bind01(){
 function sec02(){
   const d=APP.dur;
   let body='<div class="card fade"><span class="sectag">02 · TRONG KHI AI HỖ TRỢ</span>';
-  body+='<div class="subjects" id="subjects">'
-    +'<button data-s="english" class="'+(d.subject==="english"?"active":"")+'">Quiz Tiếng Anh</button>'
-    +'<button data-s="math" class="'+(d.subject==="math"?"active":"")+'">Quiz Toán</button></div>';
 
   const Q=QUIZZES[d.subject], sc=scoreOf(d.subject), wrongN=sc.total-sc.right;
 
@@ -452,8 +495,6 @@ function sec02(){
   return body;
 }
 function bind02(){
-  const sb=document.getElementById("subjects");
-  if(sb) sb.onclick=e=>{const b=e.target.closest("button"); if(!b) return; APP.dur.subject=b.dataset.s; APP.dur.stage="pick"; APP.dur.ask=null; initPlan(b.dataset.s); render();};
   const a=document.getElementById("analyze");
   if(a) a.onclick=()=>{APP.dur.stage="loading"; render(); setTimeout(()=>{APP.dur.stage="result"; render();},1400);};
   const r=document.getElementById("reanalyze"); if(r) r.onclick=()=>{APP.dur.stage="pick"; render();};
@@ -602,11 +643,11 @@ function sec04(){
   /* ---- Scenario 2: nhắc việc đã ôn rồi ---- */
   body+='<h3 class="blk">Kịch bản 2 — AI nhắc chủ đề đã ôn rồi (S8)</h3>';
   if(f2.stage==="show"){
-    body+='<div class="banner info"><span class="bi">🔔</span><div style="flex:1"><b>Nhắc ôn:</b> "Phương trình bậc hai — bạn còn 2 chủ đề chưa ôn." Nhưng bạn đã ôn kỹ phần này ở lớp học thêm rồi.'
+    body+='<div class="banner info"><span class="bi">🔔</span><div style="flex:1"><b>Nhắc ôn:</b> "Câu điều kiện loại 2 — bạn còn chủ đề chưa ôn." Nhưng bạn đã ôn kỹ phần này ở lớp học thêm rồi.'
       +'<div class="row" style="margin-top:11px"><button class="btn primary sm" data-f2="Đã ôn ngoài app">Mình ôn chủ đề này rồi</button></div></div></div>';
     body+='<div class="note">Nếu hệ thống cứ nhắc mãi một việc đã xong, người dùng sẽ khó chịu và mất niềm tin.</div>';
   } else {
-    body+='<div class="banner ok"><span class="bi">✓</span><div><b>Đã dừng nhắc "Phương trình bậc hai".</b> Lý do bạn cho: <b>'+esc(f2.reason)+'</b>. AI ghi nhận bạn tự tin chủ đề này và sẽ không nhắc lại — bạn bật lại bất cứ lúc nào.<button class="x" data-f2reset="1">Hoàn tác</button></div></div>';
+    body+='<div class="banner ok"><span class="bi">✓</span><div><b>Đã dừng nhắc "Câu điều kiện loại 2".</b> Lý do bạn cho: <b>'+esc(f2.reason)+'</b>. AI ghi nhận bạn tự tin chủ đề này và sẽ không nhắc lại — bạn bật lại bất cứ lúc nào.<button class="x" data-f2reset="1">Hoàn tác</button></div></div>';
     body+='<div class="banner info"><span class="bi">⚖️</span><div><b>Hành vi ≠ ý định:</b> nếu bạn chỉ <i>bỏ qua</i> nhắc nhở nhiều lần (implicit), AI sẽ <b>hỏi</b> trước khi bỏ hẳn — vì bỏ qua có thể chỉ do bạn đang bận, chứ không phải đã giỏi.</div></div>';
   }
   body+=rcard("Kịch bản 2 — dừng nhắc việc đã xong",[
@@ -709,11 +750,331 @@ function sec07(){
 }
 
 /* ============================================================
+   ============  DAY 20 — RETENTION, ENGAGEMENT & HABIT  ========
+   (bổ sung trên prototype Day 18 — giữ nguyên mọi tính năng cũ)
+   ============================================================ */
+function d20head(ix,kicker,title,sub){
+  return '<div class="card fade"><span class="sectag">DAY 20 · '+ix+' — '+kicker+'</span><h2>'+title+'</h2>'+(sub?'<p class="sub">'+sub+'</p>':'');
+}
+
+/* r0 — Điểm xuất phát */
+function sR0(){
+  return d20head("00","ĐIỂM XUẤT PHÁT","Tiếp tục sản phẩm & prototype Ngày 18",
+    "Day 20 không đổi đề. Nhóm giữ nguyên sản phẩm, scenario, persona và recovery flow của Day 18, rồi đi từ use case &amp; hành vi tự nhiên → core action → retention → onboarding → habit loop.")
+    +tbl(null,[
+      ["Sản phẩm","<b>Ôn Đúng Chỗ Yếu</b> — trợ lý AI cho học sinh: đọc bài quiz đã làm → chỉ ra chỗ yếu → đề xuất kế hoạch ôn."],
+      ["Hướng (Track)","AI Personal Assistant for Students."],
+      ["Scenario giữ lại","<ul class='blist' style='margin:0'><li>S0 — onboarding</li><li>S2 — ưu tiên chủ đề</li><li>S3 — đề xuất kế hoạch</li><li>S6 — gán nhầm chủ đề</li><li>S8 — nhắc việc đã xong</li></ul>"],
+      ["Persona","Học sinh cấp 3 tự ôn sau mỗi bài kiểm tra."],
+      ["Recovery flow Day 18","KB1 (sửa chủ đề AI gán nhầm) + KB2 (dừng nhắc việc đã ôn) — dùng lại trong phần onboarding tối ưu."]
+    ])
+    +'<div class="banner info"><span class="bi">↔</span><div>Toàn bộ prototype Day 18 vẫn nguyên vẹn ở phần <b>Day 18 · Prototype</b> bên trên. Phần Day 20 này là <b>bổ sung phân tích</b>, không thay đổi tính năng cũ.</div></div>'
+    +'<div class="row"><button class="btn ghost" data-go="d18:00">← Xem prototype Day 18</button><button class="btn primary" data-go="r1">Customer Retention Canvas →</button></div></div>';
+}
+
+/* r1 — Customer Retention Canvas */
+function sR1(){
+  return d20head("01","CUSTOMER RETENTION CANVAS","Use Case — hành vi tự nhiên của người dùng",
+    "Chỉ chọn <b>một use case chính</b>: học sinh ôn lại đúng chỗ yếu sau một bài quiz. Mọi metric phía sau đều suy ra từ canvas này.")
+    +tbl(["Thành phần","Câu hỏi","Câu trả lời của nhóm"],[
+      ["The Problem","Vấn đề bằng lời của user?","<i>“Em vừa làm xong bài kiểm tra mà không biết thật sự mình yếu phần nào để ôn cho đúng — ôn lại từ đầu thì mất thời gian, mà bỏ qua thì lần sau lại sai.”</i>"],
+      ["The Persona","Ai có vấn đề đó?","Học sinh cấp 3 (lớp 10–12) tự ôn ở nhà, làm kiểm tra/quiz thường xuyên, dùng điện thoại/laptop. Mục tiêu: điểm cao hơn với quỹ thời gian hạn chế. Hành vi tăng mạnh vào mùa kiểm tra giữa/cuối kỳ."],
+      ["Anti-persona","Ai KHÔNG thuộc use case này?","Học sinh chỉ học để qua môn (không muốn cải thiện); bạn đã giỏi đều, gần như không có câu sai; giáo viên (cần công cụ chấm &amp; quản lý lớp — hành vi khác). Tách ra để không trộn dữ liệu."],
+      ["The Why","Động lực cốt lõi?","Muốn lần sau làm đúng phần từng sai, tiết kiệm thời gian ôn và <b>bớt lo trước kỳ thi</b>. Outcome là điểm số + sự tự tin — không phải “có một app AI”."],
+      ["The Alternative","Đang giải quyết bằng cách nào?","Tự dò lại bài, hỏi bạn/thầy cô, xem lại vở, học nhóm — hoặc <b>chấp nhận không ôn lại</b>. Phần lớn làm thủ công nên hay bỏ sót."],
+      ["The Frequency","Tự nhiên xuất hiện bao lâu một lần?","<b>Weekly</b> theo nhịp bài kiểm tra; tăng lên gần như mỗi ngày vào mùa thi, thưa hơn (monthly) khi nghỉ. Suy ra từ tần suất làm kiểm tra thật, không theo mong muốn của team."]
+    ],"three")
+    +'<div class="row"><button class="btn primary" data-go="r2">Core Action &amp; Active User →</button></div></div>';
+}
+
+/* r2 — Core Action & Active User */
+function sR2(){
+  return d20head("02","CORE ACTION & ACTIVE USER","Hành vi tạo value &amp; ai được tính là active",null)
+    +'<h3 class="blk">Core action</h3>'
+    +tbl(["Câu hỏi","Câu trả lời"],[
+      ["Core job của use case?","Biến danh sách câu sai thành <b>biết nên ôn gì trước</b> và làm theo."],
+      ["Core action là gì?","<b>Xem phân tích chỗ yếu và chốt (chấp nhận/chỉnh) kế hoạch ôn</b> cho một bài quiz."],
+      ["Vì sao action này = value?","Đúng khoảnh khắc học sinh nhận được thứ mình cần: chỗ yếu cụ thể + kế hoạch — giải đúng pain."],
+      ["Khi nào tính là đã xảy ra?","Khi user bấm <b>“Chấp nhận kế hoạch”</b> hoặc chỉnh ≥1 mục rồi chốt (mục 03 của prototype Day 18)."]
+    ])
+    +'<div class="quote bad"><b>Chưa đủ</b> để tính là core action:</div>'
+    +'<ul class="blist bad"><li>Mở app</li><li>Đăng nhập</li><li>Chỉ xem một màn hình</li><li>Bấm “phân tích” nhưng bỏ giữa chừng</li></ul>'
+    +'<h3 class="blk">Active user</h3>'
+    +'<div class="quote">Một học sinh được tính là <b>active trong TUẦN</b> khi <b>phân tích ít nhất một bài quiz và chốt được kế hoạch ôn</b>.</div>'
+    +tbl(["Câu hỏi","Câu trả lời"],[
+      ["Chỉ mở app có tính active?","Không."],
+      ["Phải làm core action nào?","Chốt kế hoạch ôn cho ≥1 bài quiz."],
+      ["Bao nhiêu lần / trong bao lâu?","≥1 lần trong 1 tuần (khớp nhịp kiểm tra weekly)."]
+    ])
+    +'<div class="row"><button class="btn primary" data-go="r3">Retention metric →</button></div></div>';
+}
+
+/* r3 — Natural frequency & retention metric */
+function sR3(){
+  return d20head("03","RETENTION METRIC","Chọn nhịp đo theo natural frequency",
+    "Không mặc định D1/D7/D30. Use case xảy ra theo <b>nhịp tuần</b> (mỗi khi có bài kiểm tra) nên đo theo tuần.")
+    +tbl(["Thành phần","Câu trả lời"],[
+      ["Persona &amp; use case","Học sinh cấp 3 ôn đúng chỗ yếu sau mỗi bài quiz."],
+      ["Natural frequency","Weekly (tăng vào mùa thi)."],
+      ["Core action","Phân tích quiz &amp; chốt kế hoạch ôn."],
+      ["Active user","Chốt kế hoạch ≥1 lần / tuần."],
+      ["Retention metric","<b>WAU</b> + <b>weekly cohort retention (W1, W4)</b>; stickiness <b>WAU/MAU</b>."],
+      ["Vì sao phù hợp frequency","Học sinh không kiểm tra mỗi ngày → ép daily retention sẽ làm sản phẩm trông “thất bại” một cách sai lệch. Cửa sổ tuần phản ánh đúng lần xuất hiện tự nhiên kế tiếp của vấn đề."]
+    ])
+    +'<div class="banner info"><span class="bi">📌</span><div>Mùa thi có thể đo thêm theo ngày (DAU) như chỉ số phụ, nhưng <b>metric retention chính vẫn theo tuần</b>.</div></div>'
+    +'<div class="row"><button class="btn primary" data-go="r4">Onboarding audit →</button></div></div>';
+}
+
+/* r4 — Onboarding audit */
+function sR4(){
+  return d20head("04","ONBOARDING AUDIT","Current-state journey &amp; friction",
+    "Audit chính flow Day 18 (không chỉ đánh dấu). Đánh nhãn mỗi bước: <span class='lab keep'>Keep</span> <span class='lab remove'>Remove</span> <span class='lab delay'>Delay</span> <span class='lab simplify'>Simplify</span>.")
+    +'<h3 class="blk">Hành trình hiện tại (trong prototype Day 18)</h3>'
+    +flow([
+      {b:"Mở tính năng",s:"Entry point"},
+      {b:"OB1 — Hiểu AI làm/không làm",s:"3 ô feature"},
+      {b:"OB2 — Cấp quyền đọc quiz",s:"toggle"},
+      {b:"OB3 — Màn “bắt đầu”",s:"trung gian"},
+      {b:"Chọn quiz",s:"English/Math"},
+      {b:"Bấm “AI phân tích” + loading",s:""},
+      {b:"Kết quả phân tích = first value / aha",s:""},
+      {b:"Chốt kế hoạch = FIRST CORE ACTION",s:"mục 03"}
+    ])
+    +'<h3 class="blk">Friction audit</h3>'
+    +tbl(["Bước","Nhãn","Lý do"],[
+      ["OB1 — Hiểu AI","<span class='lab simplify'>Simplify</span>","Cần đặt kỳ vọng, nhưng nên gọn hơn và lồng vào lúc thấy value, không phải 1 màn riêng đầy chữ."],
+      ["OB2 — Cấp quyền","<span class='lab delay'>Delay</span>","Hỏi quyền <b>trước khi</b> thấy value → điểm drop-off cao nhất. Nên hỏi đúng lúc bấm phân tích."],
+      ["OB3 — Màn “bắt đầu”","<span class='lab remove'>Remove</span>","Màn trung gian không tạo value, chỉ thêm 1 bước."],
+      ["Chọn quiz","<span class='lab keep'>Keep</span>","Là input tối thiểu để có phân tích."],
+      ["Phân tích + loading","<span class='lab keep'>Keep</span>","Bước lõi tạo value."],
+      ["Chốt kế hoạch","<span class='lab keep'>Keep</span>","Chính là core action."]
+    ])
+    +'<h3 class="blk">Bảng Current State (ước tính từ prototype)</h3>'
+    +tbl(["Chỉ số","Current state"],[
+      ["Số bước tới first core action","6 bước (3 onboarding + chọn quiz + phân tích + chốt)"],
+      ["Số trường thông tin phải nhập","0 (chỉ chọn quiz mẫu)"],
+      ["Số permission phải cấp","1 (đọc quiz) — cấp quá sớm ở OB2"],
+      ["Time to First Core Action","~80–90 giây (ước tính)"],
+      ["Time to Value","~60 giây (thấy phân tích có lý do)"],
+      ["Điểm drop-off cao nhất","OB2 — cấp quyền trước khi thấy value"]
+    ])
+    +'<div class="note">Chưa có dữ liệu tracking thật — đây là <b>ước tính từ prototype</b>.</div>'
+    +'<div class="row"><button class="btn primary" data-go="r5">Thiết kế lại onboarding →</button></div></div>';
+}
+
+/* r5 — Redesigned onboarding */
+function sR5(){
+  return d20head("05","REDESIGNED ONBOARDING","Hành trình tối ưu tới first core action",
+    "Cho user <b>làm hành vi thật</b> sớm thay vì xem product tour; hỏi quyền đúng thời điểm; hiện evidence of value ngay sau core action.")
+    +flow([
+      {b:"1. Vào tính năng"},
+      {b:"2. Hiểu value 1 dòng",s:"“Biết nên ôn gì trước sau mỗi bài kiểm tra” + xem ngay 1 chủ đề yếu mẫu"},
+      {b:"3. Minimum setup",s:"chỉ chọn 1 bài quiz — bỏ màn “bắt đầu”"},
+      {b:"4. Hỏi quyền đúng lúc",s:"giải thích & xin quyền ngay khi bấm phân tích (just-in-time)"},
+      {b:"5. FIRST CORE ACTION",s:"xem chỗ yếu + chốt kế hoạch"},
+      {b:"6. Evidence of value",s:"“dựa trên câu 2, 5, 9” hiện ngay cạnh chủ đề"},
+      {b:"7. Aha / first value",s:"thấy kế hoạch ôn cụ thể, sửa được"},
+      {b:"8. Bước tiếp theo",s:"nhắc ôn / quiz kế tiếp"}
+    ])
+    +'<h3 class="blk">Yêu cầu tối ưu đã áp dụng</h3>'
+    +tbl(null,[
+      ["Remove / Delay","Bỏ màn “bắt đầu”; dời cấp quyền tới đúng lúc bấm phân tích."],
+      ["Minimum setup","Chỉ cần chọn 1 quiz; không nhập liệu."],
+      ["CTA rõ","Mỗi màn 1 hành động chính (“Cho AI phân tích”, “Chốt kế hoạch”)."],
+      ["Permission đúng lúc","Giải thích lợi ích ngay tại điểm cần quyền."],
+      ["Hành vi thật","User tự bấm phân tích thay vì xem hướng dẫn."],
+      ["Evidence of value","Lý do “câu 2,5,9” hiện ngay sau phân tích."],
+      ["Recovery","Giữ KB1 (sửa tag sai) làm đường khôi phục về kế hoạch đúng."]
+    ])
+    +'<h3 class="blk">Activation &amp; Time to Value</h3>'
+    +tbl(["Khái niệm","Định nghĩa cho sản phẩm này"],[
+      ["Activation","Lần đầu học sinh chốt (chấp nhận/chỉnh) kế hoạch ôn cho 1 bài quiz."],
+      ["Activation Rate","% học sinh mới đạt activation ngay trong phiên đầu."],
+      ["Time to First Core Action","Từ lúc mở tính năng → chốt kế hoạch lần đầu."],
+      ["Time to Value","Từ lúc vào → thấy chỗ yếu kèm lý do (aha)."]
+    ])
+    +'<div class="banner info"><span class="bi">🔎</span><div><b>Lựa chọn:</b> aha moment (thấy chỗ yếu + lý do) xảy ra <i>ngay trước</i> first core action (chốt kế hoạch). Hai event khác nhau — tách ra để đo riêng TTV và TTFCA.</div></div>'
+    +'<div class="row"><button class="btn primary" data-go="r6">Before/After &amp; Recovery →</button></div></div>';
+}
+
+/* r6 — Before/After & Recovery */
+function sR6(){
+  return d20head("06","BEFORE / AFTER & RECOVERY","Thay đổi cụ thể trên prototype",null)
+    +tbl(["Tiêu chí","Before","After","Vì sao thay đổi"],[
+      ["Số bước tới core action","6","<b>4</b>","Bỏ màn “bắt đầu”, gộp value vào màn đầu."],
+      ["Số trường phải nhập","0","0","Vốn đã tối thiểu."],
+      ["Permission trước core action","Cấp ở OB2 (sớm)","<b>Hỏi đúng lúc</b> bấm phân tích","Giảm drop-off, tăng tin tưởng."],
+      ["Time to First Core Action","~85s","<b>~40s</b>","Ít bước hơn, value sớm hơn."],
+      ["Time to Value","~60s","<b>~30s</b>","Hiện chủ đề yếu mẫu ngay màn đầu."],
+      ["Điểm drop-off chính","Màn cấp quyền","Giảm rõ","Quyền hỏi sau khi đã thấy lợi ích."],
+      ["Evidence of value","Ở mục 03","<b>Ngay sau phân tích (02)</b>","Thấy lý do sớm → tin sớm."],
+      ["Recovery path","KB1 sửa tag","Giữ + thêm path từ chối quyền","Không kết ở màn lỗi."]
+    ],"three")
+    +'<h3 class="blk">Recovery path (chọn: user từ chối permission)</h3>'
+    +flow([
+      {b:"User từ chối cấp quyền đọc quiz"},
+      {b:"Hệ thống không bỏ mặc",s:"không dừng ở màn lỗi"},
+      {b:"Cho dùng thử trên 1 quiz mẫu",s:"không cần quyền → vẫn thấy value"},
+      {b:"Hỏi lại quyền với lý do rõ",s:"“để phân tích đúng bài của bạn”"},
+      {b:"Quay lại core action",s:"chốt kế hoạch", loop:true}
+    ])
+    +'<div class="note">Recovery thứ hai giữ nguyên từ Day 18: AI gán nhầm chủ đề → user sửa tag → hệ thống xác nhận → tính lại kế hoạch (KB1).</div>'
+    +'<div class="row"><button class="btn primary" data-go="r7">Measurement Ladder →</button></div></div>';
+}
+
+/* r7 — Measurement ladder */
+function sR7(){
+  return d20head("07","MEASUREMENT LADDER","Đặt metric vào đúng bậc",
+    "Chỉ chọn metric trả lời được câu hỏi của sản phẩm.")
+    +flow([
+      {b:"Marketing / Traffic",s:"lượt biết tới tính năng — ngoài phạm vi prototype"},
+      {b:"Visitor",s:"mở tính năng (feature_opened)"},
+      {b:"Activation",s:"chốt kế hoạch lần đầu · Activation Rate"},
+      {b:"Core Action",s:"số bài quiz phân tích & chốt / tuần (NSM)"},
+      {b:"Retention",s:"WAU · weekly cohort W1/W4 · WAU/MAU"},
+      {b:"Revenue",s:"bản Pro / nội dung trả phí — ngoài phạm vi, ghi nhận sau"}
+    ])
+    +'<div class="row"><button class="btn primary" data-go="r8">North Star &amp; Inputs →</button></div></div>';
+}
+
+/* r8 — North star & inputs */
+function sR8(){
+  return d20head("08","NORTH STAR & INPUT METRICS","Chỉ số cốt lõi phản ánh value",null)
+    +'<div class="quote"><b>North Star Metric:</b> Số bài quiz được <b>phân tích &amp; chốt kế hoạch ôn mỗi tuần</b> (trên mỗi học sinh hoạt động).</div>'
+    +tbl(["Input Metric (≤3)","Vì sao tác động tới NSM"],[
+      ["Activation Rate của người mới","Càng nhiều người mới đạt first core action → càng nhiều kế hoạch được chốt."],
+      ["Tỉ lệ “phân tích → chốt kế hoạch”","Giảm friction ở bước chốt → tăng NSM."],
+      ["W1 weekly retention","Người quay lại tuần sau tiếp tục tạo kế hoạch mới."]
+    ])
+    +flow([
+      {b:"The Work",s:"tối ưu onboarding, độ tin của phân tích, nhắc đúng lúc"},
+      {b:"Input Metrics",s:"activation · completion · W1 retention"},
+      {b:"North Star Metric",s:"kế hoạch ôn được chốt / tuần"},
+      {b:"Mid/Long-term",s:"điểm số cải thiện · giữ chân theo học kỳ (customer value)"}
+    ])
+    +tbl(["","Chỉ số"],[
+      ["Leading indicator","Activation rate, completion, NSM (báo trước)."],
+      ["Lagging indicator","Điểm số cải thiện, retention theo học kỳ (đến sau)."]
+    ])
+    +'<div class="banner warn"><span class="bi">⚖️</span><div><b>Trade-off cần theo dõi:</b> để đẩy NSM, có thể gửi nhắc dày → tăng lượt mở ngắn hạn nhưng <b>giảm niềm tin &amp; chất lượng engagement</b> (giống tăng vị trí quảng cáo làm tăng revenue nhưng giảm trải nghiệm).</div>'
+    +'</div><div class="row"><button class="btn primary" data-go="r9">Nature vs Nurture →</button></div></div>';
+}
+
+/* r9 — Nature vs nurture */
+function sR9(){
+  return d20head("09","NATURE vs NURTURE","Nhịp tự nhiên &amp; cách nuôi nhịp",
+    "Nature = nhịp nhu cầu thật (theo bài kiểm tra). Nurture = việc sản phẩm chủ động làm để nuôi nhịp đó — <b>không tạo nhu cầu từ số 0</b>.")
+    +tbl(["Nội dung","Câu trả lời"],[
+      ["Natural frequency của use case","Weekly theo nhịp kiểm tra; cao hơn vào mùa thi."],
+      ["Internal trigger","Cảm giác lo “mình yếu phần nào” ngay sau khi nhận điểm / trước kỳ thi."],
+      ["External trigger hiện có","Thông báo khi có bài quiz mới chấm: “Xem chỗ yếu của bài vừa rồi?”; nhắc trước kỳ kiểm tra."],
+      ["Một hoạt động nurture phù hợp","Nhắc đúng <b>sau khi có kết quả kiểm tra</b> + tóm tắt tiến bộ cuối tuần."],
+      ["Vì sao không quá dày/thưa","Kiểm tra ~weekly → nhắc theo sự kiện “có bài mới”, không nhắc hằng ngày (không có data mới → gây phiền, mất tin)."],
+      ["Metric theo dõi tác động","Tỉ lệ mở-từ-nhắc → core action; WAU."]
+    ])
+    +'<div class="banner info"><span class="bi">💡</span><div>Use case lõi có frequency thấp ngoài mùa thi → có thể thêm điểm chạm phụ tần suất cao hơn (“ôn nhanh 5 phút chủ đề yếu cũ”) để duy trì hiện diện — nhưng <b>không giả định</b> học sinh ôn mỗi ngày (giống Zillow dùng Zestimate cho use case mua nhà vốn rất thưa).</div>'
+    +'</div><div class="row"><button class="btn primary" data-go="r10">Hook Review →</button></div></div>';
+}
+
+/* r10 — Hook review */
+function sR10(){
+  return d20head("10","HOOK MODEL","Habit loop sau khi đã hiểu frequency",
+    "Hành vi xảy ra ~weekly (theo sự kiện) — đủ để hình thành thói quen <b>theo-sự-kiện</b>, không ép thành hành vi hằng ngày.")
+    +'<div class="quote">Hoàn thành câu: <b>Mỗi khi học sinh vừa nhận điểm một bài kiểm tra và thấy lo mình yếu chỗ nào</b>, họ sẽ <b>mở Ôn Đúng Chỗ Yếu để biết cần ôn gì trước</b>.</div>'
+    +tbl(["Thành phần","Câu trả lời"],[
+      ["Why Habit?","Hình thành thói quen “sau mỗi bài kiểm tra → ôn đúng chỗ yếu” giúp cải thiện điểm bền vững; với sản phẩm → retention."],
+      ["Intended Behavior","Phân tích bài quiz vừa làm &amp; chốt kế hoạch ôn."],
+      ["Frequency &amp; Utility","Weekly theo kiểm tra; utility cao (tiết kiệm thời gian, bớt lo). Đủ để tạo habit theo sự kiện."],
+      ["Internal Trigger","Lo/bất an “không biết mình yếu gì” sau khi làm bài."],
+      ["External Trigger","Thông báo “Bài kiểm tra vừa chấm — xem chỗ yếu?” (owned / relationship)."],
+      ["Action","Chốt kế hoạch ôn (chấp nhận/chỉnh) — hành vi đơn giản nhất để nhận reward."],
+      ["Motivation","Muốn điểm cao hơn, đỡ lo, tiết kiệm thời gian."],
+      ["Ability","Giảm rào cản: không nhập liệu, kết quả 1 chạm, giải thích dễ hiểu (rào cản chính: brain cycles, time)."],
+      ["Variable Reward","<b>The Self</b> (thấy tiến bộ, làm chủ chỗ yếu) + <b>The Hunt</b> (khám phá đúng chỗ yếu thật qua “xem câu sai liên quan”)."],
+      ["Investment","Chỉnh kế hoạch, sửa tag sai, đánh dấu “đã ôn” → AI nhớ → lần sau cá nhân hoá hơn."],
+      ["Next Trigger","Bài kiểm tra kế tiếp + nhắc “ôn lại trước kiểm tra” dựa trên lịch sử đã lưu."],
+      ["User Impact","Có lợi thật (ôn hiệu quả), không gây nghiện vô bổ; không ép habit hằng ngày vì frequency weekly."]
+    ])
+    +'<h3 class="blk">Hook flow (sửa trực tiếp trên prototype)</h3>'
+    +flow([
+      {b:"Internal / External Trigger",s:"lo lắng sau điểm + thông báo có bài mới"},
+      {b:"Action",s:"chốt kế hoạch ôn"},
+      {b:"Variable Reward",s:"thấy tiến bộ + khám phá chỗ yếu thật"},
+      {b:"Investment",s:"sửa tag, đánh dấu đã ôn → AI nhớ"},
+      {b:"Trigger vòng tiếp theo",s:"kiểm tra kế tiếp + nhắc ôn", loop:true}
+    ])
+    +'<div class="banner info"><span class="bi">🧪</span><div><b>Kiểm tra tác động:</b> cơ chế này nhóm sẵn sàng tự dùng; cải thiện việc học thật; không làm user mất kiểm soát (nhắc theo sự kiện, tắt được). Nếu frequency/utility không đủ → không ép habit, quay lại Nature vs Nurture.</div>'
+    +'</div><div class="row"><button class="btn primary" data-go="r11">Metric Tracking →</button></div></div>';
+}
+
+/* r11 — Metric tracking requirement */
+function sR11(){
+  return d20head("11","METRIC TRACKING REQUIREMENT","Chuyển metric đã chọn thành event",
+    "Không tạo metric mới — chỉ định nghĩa &amp; gắn event cho các metric ở mục 02–03 và 08.")
+    +'<h3 class="blk">Bảng định nghĩa metric</h3>'
+    +tbl(["Trường","NSM — Kế hoạch chốt/tuần","WAU","Activation Rate"],[
+      ["Câu hỏi","Mỗi tuần có bao nhiêu kế hoạch ôn được chốt?","Bao nhiêu HS active/tuần?","% người mới đạt first core action?"],
+      ["Định nghĩa","Số lần <code>plan_committed</code> / tuần / user","User có ≥1 <code>plan_committed</code> trong tuần","HS mới có <code>plan_committed</code> trong phiên đầu"],
+      ["Công thức","Σ plan_committed ÷ active users","distinct user_id có plan_committed","activated ÷ new users"],
+      ["Window","Weekly","Weekly","Phiên đầu / D0"],
+      ["Segment","Persona học sinh","—","Cohort người mới"],
+      ["Event cần","plan_committed","plan_committed","feature_opened, plan_committed"]
+    ],"three")
+    +'<h3 class="blk">Bảng yêu cầu tracking event</h3>'
+    +tbl(["Event","Ghi khi nào","Identity","Properties","Metric dùng","Tránh ghi trùng"],[
+      ["feature_opened","User mở tính năng","user_id","source","Visitor","1 event/phiên mở"],
+      ["quiz_imported","Chọn/nhập 1 quiz đã chấm","user_id","num_q, num_wrong","—","theo quiz_id"],
+      ["analysis_viewed","Hiện kết quả phân tích (aha)","user_id","num_topics, num_unsure","TTV","1 lần/phân tích"],
+      ["plan_committed","Trạng thái chuyển sang “đã chốt”","user_id","topics_kept, edited, source","NSM, WAU, Activation","chỉ khi chưa→đã chốt; refresh không tạo lại"],
+      ["topic_corrected","User sửa chủ đề AI gán","user_id","from, to","chất lượng phân loại","mỗi lần sửa"],
+      ["reminder_opened","Mở từ thông báo nhắc","user_id","trigger_type","nurture, retention","theo notif_id"]
+    ],"three")
+    +'<h3 class="blk">Gắn event lên flow</h3>'
+    +flow([
+      {b:"Mở tính năng",s:"feature_opened"},
+      {b:"Chọn quiz",s:"quiz_imported"},
+      {b:"Xem phân tích",s:"analysis_viewed (aha)"},
+      {b:"Chốt kế hoạch",s:"plan_committed (activation / core action)"}
+    ])
+    +'<h3 class="blk">Tiêu chí nghiệm thu tracking (≥4)</h3>'
+    +tbl(null,[
+      ["1","<code>plan_committed</code> chỉ ghi khi kế hoạch thực sự chuyển sang “đã chốt”, không ghi khi mới xem."],
+      ["2","Refresh / retry / autosave không tạo trùng event cho cùng một lần chốt."],
+      ["3","Mỗi event có đủ <code>user_id</code> + properties cần để tính metric/segment."],
+      ["4","Timestamp &amp; timezone nhất quán giữa các event."],
+      ["5","Không thu thập dữ liệu cá nhân ngoài những gì cần để tính metric."]
+    ])
+    +'<div class="row"><button class="btn primary" data-go="r12">Demo path →</button></div></div>';
+}
+
+/* r12 — Demo path 8 phút */
+function sR12(){
+  const steps=[
+    ["0:00–1:00","Problem, Persona, Why &amp; Alternative","r1"],
+    ["1:00–1:50","Frequency, Core Action &amp; Active User","r2"],
+    ["1:50–2:40","Retention metric &amp; lý do chọn cadence","r3"],
+    ["2:40–4:20","Current flow, redesign onboarding, first core action &amp; TTV","r5"],
+    ["4:20–5:15","North Star, Input Metrics, leading/lagging","r8"],
+    ["5:15–6:20","Nature vs Nurture &amp; Hook Model","r10"],
+    ["6:20–7:15","Tracking requirement","r11"],
+    ["7:15–8:00","Before/After &amp; thay đổi quan trọng nhất","r6"]
+  ];
+  let body=d20head("12","DEMO PATH — 8 phút","Đường demo cho giảng viên",
+    "Bấm theo thứ tự. Phần này tách bạch với prototype Day 18 (chuyển bằng thanh trên cùng).")+'<div class="demo">';
+  steps.forEach(s=>{body+='<div class="dp"><div><div class="dt"><b>'+s[0]+'</b> — '+s[1]+'</div><button class="dgo" data-go="'+s[2]+'">→ Tới mục</button></div></div>';});
+  body+='</div>';
+  body+='<div class="note"><b>Submission:</b> nộp 1 liên kết tới file prototype này. Phần Day 18 và phần bổ sung Day 20 phân biệt rõ bằng thanh chuyển ở đầu trang. Mọi số liệu (TTV, drop-off…) là <b>ước tính từ prototype</b>, chưa có tracking thật.</div>';
+  body+='<div class="row"><button class="btn ghost" data-go="d18:07">Xem demo Day 18</button><button class="btn primary" data-go="r0">↺ Về đầu Day 20</button></div></div>';
+  return body;
+}
+
+/* ============================================================
    ROUTER
    ============================================================ */
 function render(){
   renderNav();
-  const map={ "00":sec00,"01":sec01,"02":sec02,"03":sec03,"04":sec04,"05":sec05,"06":sec06,"07":sec07 };
+  const map={ "00":sec00,"01":sec01,"02":sec02,"03":sec03,"04":sec04,"05":sec05,"06":sec06,"07":sec07,
+    "r0":sR0,"r1":sR1,"r2":sR2,"r3":sR3,"r4":sR4,"r5":sR5,"r6":sR6,"r7":sR7,"r8":sR8,"r9":sR9,"r10":sR10,"r11":sR11,"r12":sR12 };
   screenEl.innerHTML = map[APP.section]();
   // rebind go-buttons inside content
   screenEl.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>goto(b.dataset.go));
