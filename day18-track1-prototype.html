@@ -59,6 +59,9 @@
   .gl{color:var(--muted);font-weight:400;font-style:italic;font-size:.92em}
   .glbox{background:#f7fafb;border:1px dashed #cdd9de;border-radius:10px;padding:10px 14px;margin:8px 0 4px;font-size:12.5px;color:var(--muted);line-height:1.7}
   .glbox b{color:var(--teal-d);font-style:normal}
+  /* Khối giới thiệu "là gì / giải quyết vấn đề gì" đầu mỗi tab */
+  .intro{background:#f0f7f9;border:1px solid #cfe2ea;border-left:4px solid var(--teal);border-radius:0 11px 11px 0;padding:12px 15px;margin:4px 0 16px;font-size:13px;line-height:1.6}
+  .intro div{margin:3px 0;color:#3a4d56} .intro b{color:var(--teal-d)}
   /* Card */
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
   .card h2{font-size:18px;margin:0 0 4px}
@@ -768,8 +771,10 @@ function sec07(){
    ============  DAY 20 — RETENTION, ENGAGEMENT & HABIT  ========
    (bổ sung trên prototype Day 18 — giữ nguyên mọi tính năng cũ)
    ============================================================ */
-function d20head(ix,kicker,title,sub){
-  return '<div class="card fade"><span class="sectag">DAY 20 · '+ix+' — '+kicker+'</span><h2>'+title+'</h2>'+(sub?'<p class="sub">'+sub+'</p>':'');
+function d20head(ix,kicker,title,sub,what,why){
+  let h='<div class="card fade"><span class="sectag">DAY 20 · '+ix+' — '+kicker+'</span><h2>'+title+'</h2>'+(sub?'<p class="sub">'+sub+'</p>':'');
+  if(what&&why) h+='<div class="intro"><div><b>Là gì?</b> '+what+'</div><div><b>Giải quyết vấn đề gì?</b> '+why+'</div></div>';
+  return h;
 }
 
 /* r0 — Điểm xuất phát */
@@ -791,7 +796,9 @@ function sR0(){
 /* r1 — Customer Retention Canvas */
 function sR1(){
   return d20head("01","CUSTOMER RETENTION CANVAS","Use Case — hành vi tự nhiên của người dùng",
-    "Chỉ chọn <b>một use case chính</b>: học sinh ôn lại đúng chỗ yếu sau một bài quiz. Mọi metric phía sau đều suy ra từ canvas này.")
+    "Chỉ chọn <b>một use case chính</b>: học sinh ôn lại đúng chỗ yếu sau một bài quiz. Mọi metric phía sau đều suy ra từ canvas này.",
+    "Một khung mô tả use case theo góc nhìn người dùng — gồm Problem · Persona · Why · Alternative · Frequency.",
+    "Giúp hiểu đúng <b>ai – vì sao – bao lâu một lần</b> trước khi chọn metric, tránh chọn theo cảm tính.")
     +tbl(["Thành phần","Câu hỏi","Câu trả lời của nhóm"],[
       ["The Problem","Vấn đề bằng lời của user?","<i>“Em vừa làm xong bài kiểm tra mà không biết thật sự mình yếu phần nào để ôn cho đúng — ôn lại từ đầu thì mất thời gian, mà bỏ qua thì lần sau lại sai.”</i>"],
       ["The Persona","Ai có vấn đề đó?","Học sinh cấp 3 (lớp 10–12) tự ôn ở nhà, làm kiểm tra/quiz thường xuyên, dùng điện thoại/laptop. Mục tiêu: điểm cao hơn với quỹ thời gian hạn chế. Hành vi tăng mạnh vào mùa kiểm tra giữa/cuối kỳ."],
@@ -805,7 +812,10 @@ function sR1(){
 
 /* r2 — Core Action & Active User */
 function sR2(){
-  return d20head("02","CORE ACTION & ACTIVE USER","Hành vi tạo value &amp; ai được tính là active",null)
+  return d20head("02","CORE ACTION & ACTIVE USER","Hành vi tạo value &amp; ai được tính là active",
+    "Tab này xác định <b>hành vi nào</b> cho thấy học sinh thật sự nhận được giá trị, và đặt <b>ngưỡng</b> để gọi một người là “đang dùng” — nền tảng cho mọi chỉ số phía sau.",
+    "Hành vi cốt lõi cho thấy user nhận giá trị, kèm ngưỡng tính “đang dùng”.",
+    "Tránh coi “mở app” là thành công; chỉ tính khi user <b>thật sự nhận value</b>.")
     +'<h3 class="blk">Core action</h3>'
     +tbl(["Câu hỏi","Câu trả lời"],[
       ["Core job của use case?","Biến danh sách câu sai thành <b>biết nên ôn gì trước</b> và làm theo."],
@@ -828,7 +838,9 @@ function sR2(){
 /* r3 — Natural frequency & retention metric */
 function sR3(){
   return d20head("03","RETENTION METRIC","Chọn nhịp đo theo natural frequency",
-    "Không mặc định D1/D7/D30. Use case xảy ra theo <b>nhịp tuần</b> (mỗi khi có bài kiểm tra) nên đo theo tuần.")
+    "Không mặc định D1/D7/D30. Use case xảy ra theo <b>nhịp tuần</b> (mỗi khi có bài kiểm tra) nên đo theo tuần.",
+    "Nhịp tự nhiên user quay lại + chỉ số đo việc giữ chân theo nhịp đó.",
+    "Tránh ép D1/D7 cho sản phẩm dùng theo tuần → đo sai, tưởng sản phẩm thất bại.")
     +tbl(["Thành phần","Câu trả lời"],[
       ["Persona &amp; use case<br><span class='gl'>ai dùng &amp; để làm gì</span>","Học sinh cấp 3 ôn đúng chỗ yếu sau mỗi bài quiz."],
       ["Natural frequency<br><span class='gl'>tần suất tự nhiên vấn đề xuất hiện</span>","Weekly (tăng vào mùa thi)."],
@@ -844,7 +856,9 @@ function sR3(){
 /* r4 — Onboarding audit */
 function sR4(){
   return d20head("04","ONBOARDING AUDIT","Current-state journey &amp; friction",
-    "Audit chính flow Day 18 (không chỉ đánh dấu). Đánh nhãn mỗi bước: <span class='lab keep'>Keep</span> <span class='lab remove'>Remove</span> <span class='lab delay'>Delay</span> <span class='lab simplify'>Simplify</span>.")
+    "Audit chính flow Day 18 (không chỉ đánh dấu). Đánh nhãn mỗi bước: <span class='lab keep'>Keep</span> <span class='lab remove'>Remove</span> <span class='lab delay'>Delay</span> <span class='lab simplify'>Simplify</span>.",
+    "Soi lại hành trình onboarding lần đầu và gắn nhãn từng bước (giữ / bỏ / hoãn / làm gọn).",
+    "Tìm chỗ gây bỏ cuộc <b>trước khi</b> user kịp nhận value, để biết phải sửa gì.")
     +'<h3 class="blk">Hành trình hiện tại (trong prototype Day 18)</h3>'
     +flow([
       {b:"Mở tính năng",s:"Entry point"},
@@ -881,7 +895,9 @@ function sR4(){
 /* r5 — Redesigned onboarding */
 function sR5(){
   return d20head("05","REDESIGNED ONBOARDING","Hành trình tối ưu tới first core action",
-    "Cho user <b>làm hành vi thật</b> sớm thay vì xem product tour; hỏi quyền đúng thời điểm; hiện evidence of value ngay sau core action.")
+    "Cho user <b>làm hành vi thật</b> sớm thay vì xem product tour; hỏi quyền đúng thời điểm; hiện evidence of value ngay sau core action.",
+    "Hành trình onboarding được vẽ lại để đưa user tới core action nhanh nhất.",
+    "Rút ngắn thời gian tới value và giảm tỉ lệ bỏ cuộc giữa chừng.")
     +flow([
       {b:"1. Vào tính năng"},
       {b:"2. Hiểu value 1 dòng",s:"“Biết nên ôn gì trước sau mỗi bài kiểm tra” + xem ngay 1 chủ đề yếu mẫu"},
@@ -915,7 +931,10 @@ function sR5(){
 
 /* r6 — Before/After & Recovery */
 function sR6(){
-  return d20head("06","BEFORE / AFTER & RECOVERY","Thay đổi cụ thể trên prototype",null)
+  return d20head("06","BEFORE / AFTER & RECOVERY","Thay đổi cụ thể trên prototype",
+    "Tab này so sánh onboarding <b>trước và sau khi tối ưu</b> bằng con số cụ thể, và đảm bảo luôn có <b>đường khôi phục</b> khi user gặp trục trặc.",
+    "Bảng so sánh số liệu trước–sau khi tối ưu, kèm đường khôi phục khi gặp trục trặc.",
+    "Chứng minh thay đổi <b>có thật bằng con số</b>, không nói chung chung “flow mới dễ dùng hơn”.")
     +tbl(["Tiêu chí","Before","After","Vì sao thay đổi"],[
       ["Số bước tới core action","6","<b>4</b>","Bỏ màn “bắt đầu”, gộp value vào màn đầu."],
       ["Số trường phải nhập","0","0","Vốn đã tối thiểu."],
@@ -941,7 +960,9 @@ function sR6(){
 /* r7 — Measurement ladder */
 function sR7(){
   return d20head("07","MEASUREMENT LADDER","Đặt metric vào đúng bậc",
-    "Chỉ chọn metric trả lời được câu hỏi của sản phẩm.")
+    "Chỉ chọn metric trả lời được câu hỏi của sản phẩm.",
+    "Một “thang” xếp các chỉ số theo hành trình: Traffic → Visitor → Activation → Core Action → Retention → Revenue.",
+    "Biết mỗi chỉ số đo ở <b>bậc nào</b> của hành trình, không lẫn lộn khi báo cáo.")
     +flow([
       {b:"Marketing / Traffic",s:"lượt biết tới tính năng — ngoài phạm vi prototype"},
       {b:"Visitor",s:"mở tính năng (feature_opened)"},
@@ -955,7 +976,10 @@ function sR7(){
 
 /* r8 — North star & inputs */
 function sR8(){
-  return d20head("08","NORTH STAR & INPUT METRICS","Chỉ số cốt lõi phản ánh value",null)
+  return d20head("08","NORTH STAR & INPUT METRICS","Chỉ số cốt lõi phản ánh value",
+    "Tab này chọn <b>một chỉ số cốt lõi (North Star)</b> đại diện cho giá trị sản phẩm, cùng vài <b>chỉ số đòn bẩy</b> tác động tới nó.",
+    "Một chỉ số cốt lõi (North Star) + vài chỉ số đòn bẩy (input) tác động tới nó.",
+    "Cho cả nhóm cùng hướng về <b>một thước đo giá trị</b>, tránh chạy theo vanity metric.")
     +'<div class="quote"><b>North Star Metric:</b> Số bài quiz được <b>phân tích &amp; chốt kế hoạch ôn mỗi tuần</b> (trên mỗi học sinh hoạt động).</div>'
     +tbl(["Input Metric (≤3)","Vì sao tác động tới NSM"],[
       ["Activation Rate của người mới","Càng nhiều người mới đạt first core action → càng nhiều kế hoạch được chốt."],
@@ -979,7 +1003,9 @@ function sR8(){
 /* r9 — Nature vs nurture */
 function sR9(){
   return d20head("09","NATURE vs NURTURE","Nhịp tự nhiên &amp; cách nuôi nhịp",
-    "Nature = nhịp nhu cầu thật (theo bài kiểm tra). Nurture = việc sản phẩm chủ động làm để nuôi nhịp đó — <b>không tạo nhu cầu từ số 0</b>.")
+    "Nature = nhịp nhu cầu thật (theo bài kiểm tra). Nurture = việc sản phẩm chủ động làm để nuôi nhịp đó — <b>không tạo nhu cầu từ số 0</b>.",
+    "Phân biệt nhịp nhu cầu <b>tự nhiên</b> (nature) với việc sản phẩm <b>chủ động thúc đẩy</b> (nurture).",
+    "Nhắc / khuyến khích đúng nhịp — không spam và không ép một nhu cầu vốn không có.")
     +tbl(["Nội dung","Câu trả lời"],[
       ["Natural frequency của use case<br><span class='gl'>nhịp tự nhiên của nhu cầu</span>","Weekly theo nhịp kiểm tra; cao hơn vào mùa thi."],
       ["Internal trigger<br><span class='gl'>cảm xúc bên trong khiến user tự tìm tới</span>","Cảm giác lo “mình yếu phần nào” ngay sau khi nhận điểm / trước kỳ thi."],
@@ -995,7 +1021,9 @@ function sR9(){
 /* r10 — Hook review */
 function sR10(){
   return d20head("10","HOOK MODEL","Habit loop sau khi đã hiểu frequency",
-    "Hành vi xảy ra ~weekly (theo sự kiện) — đủ để hình thành thói quen <b>theo-sự-kiện</b>, không ép thành hành vi hằng ngày.")
+    "Hành vi xảy ra ~weekly (theo sự kiện) — đủ để hình thành thói quen <b>theo-sự-kiện</b>, không ép thành hành vi hằng ngày.",
+    "Mô hình 4 bước tạo thói quen: Trigger → Action → Variable Reward → Investment.",
+    "Thiết kế để hành vi <b>lặp lại tự nhiên</b> — và kiểm tra xem có <i>nên</i> tạo habit không.")
     +'<div class="quote">Hoàn thành câu: <b>Mỗi khi học sinh vừa nhận điểm một bài kiểm tra và thấy lo mình yếu chỗ nào</b>, họ sẽ <b>mở Ôn Đúng Chỗ Yếu để biết cần ôn gì trước</b>.</div>'
     +tbl(["Thành phần","Câu trả lời"],[
       ["Why Habit?","Hình thành thói quen “sau mỗi bài kiểm tra → ôn đúng chỗ yếu” giúp cải thiện điểm bền vững; với sản phẩm → retention."],
@@ -1026,7 +1054,9 @@ function sR10(){
 /* r11 — Metric tracking requirement */
 function sR11(){
   return d20head("11","METRIC TRACKING REQUIREMENT","Chuyển metric đã chọn thành event",
-    "Không tạo metric mới — chỉ định nghĩa &amp; gắn event cho các metric ở mục 02–03 và 08.")
+    "Không tạo metric mới — chỉ định nghĩa &amp; gắn event cho các metric ở mục 02–03 và 08.",
+    "Chuyển các metric đã chọn thành <b>định nghĩa event</b> cụ thể để hệ thống đo được.",
+    "Đảm bảo đo <b>đúng</b>, không đếm trùng, và đủ dữ liệu để tính metric.")
     +'<h3 class="blk">Bảng định nghĩa metric</h3>'
     +tbl(["Trường","NSM — Kế hoạch chốt/tuần","WAU","Activation Rate"],[
       ["Câu hỏi","Mỗi tuần có bao nhiêu kế hoạch ôn được chốt?","Bao nhiêu HS active/tuần?","% người mới đạt first core action?"],
