@@ -55,6 +55,10 @@
   .lab.keep{background:var(--green-l);color:var(--green)} .lab.simplify{background:var(--teal-l);color:var(--teal-d)} .lab.delay{background:var(--amber-l);color:var(--amber)} .lab.remove{background:var(--red-l);color:var(--red)}
   .quote{border-left:3px solid var(--teal);background:var(--teal-l);border-radius:0 10px 10px 0;padding:11px 15px;font-size:13.5px;color:var(--teal-d);margin:10px 0}
   .quote.bad{border-left-color:var(--red);background:var(--red-l);color:#a83b38}
+  /* gloss ngắn cạnh thuật ngữ */
+  .gl{color:var(--muted);font-weight:400;font-style:italic;font-size:.92em}
+  .glbox{background:#f7fafb;border:1px dashed #cdd9de;border-radius:10px;padding:10px 14px;margin:8px 0 4px;font-size:12.5px;color:var(--muted);line-height:1.7}
+  .glbox b{color:var(--teal-d);font-style:normal}
   /* Card */
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:22px;margin-bottom:16px}
   .card h2{font-size:18px;margin:0 0 4px}
@@ -272,6 +276,7 @@ const SECTIONS = [
 /* Day 20 — Retention, Engagement & Habit Loop (bổ sung, giữ nguyên Day 18) */
 const SECTIONS_D20 = [
   {id:"r0",  ix:"00", label:"Điểm xuất phát"},
+  {id:"rg",  ix:"📖", label:"Thuật ngữ"},
   {id:"r1",  ix:"01", label:"Retention Canvas"},
   {id:"r2",  ix:"02", label:"Core Action & Active User"},
   {id:"r3",  ix:"03", label:"Frequency & Retention Metric"},
@@ -779,7 +784,8 @@ function sR0(){
       ["Recovery flow Day 18","KB1 (sửa chủ đề AI gán nhầm) + KB2 (dừng nhắc việc đã ôn) — dùng lại trong phần onboarding tối ưu."]
     ])
     +'<div class="banner info"><span class="bi">↔</span><div>Toàn bộ prototype Day 18 vẫn nguyên vẹn ở phần <b>Day 18 · Prototype</b> bên trên. Phần Day 20 này là <b>bổ sung phân tích</b>, không thay đổi tính năng cũ.</div></div>'
-    +'<div class="row"><button class="btn ghost" data-go="d18:00">← Xem prototype Day 18</button><button class="btn primary" data-go="r1">Customer Retention Canvas →</button></div></div>';
+    +'<div class="banner info"><span class="bi">📖</span><div>Chưa quen các thuật ngữ (core action, retention, North Star, Hook Model…)? Mở mục <b>📖 Thuật ngữ</b> — giải thích dễ hiểu kèm ví dụ để present cả lớp cùng theo.</div></div>'
+    +'<div class="row"><button class="btn ghost" data-go="d18:00">← Xem prototype Day 18</button><button class="btn ghost" data-go="rg">📖 Thuật ngữ</button><button class="btn primary" data-go="r1">Customer Retention Canvas →</button></div></div>';
 }
 
 /* r1 — Customer Retention Canvas */
@@ -789,7 +795,7 @@ function sR1(){
     +tbl(["Thành phần","Câu hỏi","Câu trả lời của nhóm"],[
       ["The Problem","Vấn đề bằng lời của user?","<i>“Em vừa làm xong bài kiểm tra mà không biết thật sự mình yếu phần nào để ôn cho đúng — ôn lại từ đầu thì mất thời gian, mà bỏ qua thì lần sau lại sai.”</i>"],
       ["The Persona","Ai có vấn đề đó?","Học sinh cấp 3 (lớp 10–12) tự ôn ở nhà, làm kiểm tra/quiz thường xuyên, dùng điện thoại/laptop. Mục tiêu: điểm cao hơn với quỹ thời gian hạn chế. Hành vi tăng mạnh vào mùa kiểm tra giữa/cuối kỳ."],
-      ["Anti-persona","Ai KHÔNG thuộc use case này?","Học sinh chỉ học để qua môn (không muốn cải thiện); bạn đã giỏi đều, gần như không có câu sai; giáo viên (cần công cụ chấm &amp; quản lý lớp — hành vi khác). Tách ra để không trộn dữ liệu."],
+      ["Anti-persona","Ai KHÔNG thuộc use case này?","Học sinh học đối phó, không quan tâm cải thiện điểm; bạn đã giỏi đều, gần như không có câu sai; giáo viên (cần công cụ chấm &amp; quản lý lớp — hành vi khác). Tách ra để không trộn dữ liệu."],
       ["The Why","Động lực cốt lõi?","Muốn lần sau làm đúng phần từng sai, tiết kiệm thời gian ôn và <b>bớt lo trước kỳ thi</b>. Outcome là điểm số + sự tự tin — không phải “có một app AI”."],
       ["The Alternative","Đang giải quyết bằng cách nào?","Tự dò lại bài, hỏi bạn/thầy cô, xem lại vở, học nhóm — hoặc <b>chấp nhận không ôn lại</b>. Phần lớn làm thủ công nên hay bỏ sót."],
       ["The Frequency","Tự nhiên xuất hiện bao lâu một lần?","<b>Weekly</b> theo nhịp bài kiểm tra; tăng lên gần như mỗi ngày vào mùa thi, thưa hơn (monthly) khi nghỉ. Suy ra từ tần suất làm kiểm tra thật, không theo mong muốn của team."]
@@ -824,11 +830,11 @@ function sR3(){
   return d20head("03","RETENTION METRIC","Chọn nhịp đo theo natural frequency",
     "Không mặc định D1/D7/D30. Use case xảy ra theo <b>nhịp tuần</b> (mỗi khi có bài kiểm tra) nên đo theo tuần.")
     +tbl(["Thành phần","Câu trả lời"],[
-      ["Persona &amp; use case","Học sinh cấp 3 ôn đúng chỗ yếu sau mỗi bài quiz."],
-      ["Natural frequency","Weekly (tăng vào mùa thi)."],
-      ["Core action","Phân tích quiz &amp; chốt kế hoạch ôn."],
-      ["Active user","Chốt kế hoạch ≥1 lần / tuần."],
-      ["Retention metric","<b>WAU</b> + <b>weekly cohort retention (W1, W4)</b>; stickiness <b>WAU/MAU</b>."],
+      ["Persona &amp; use case<br><span class='gl'>ai dùng &amp; để làm gì</span>","Học sinh cấp 3 ôn đúng chỗ yếu sau mỗi bài quiz."],
+      ["Natural frequency<br><span class='gl'>tần suất tự nhiên vấn đề xuất hiện</span>","Weekly (tăng vào mùa thi)."],
+      ["Core action<br><span class='gl'>hành vi cho thấy user nhận value thật</span>","Phân tích quiz &amp; chốt kế hoạch ôn."],
+      ["Active user<br><span class='gl'>ai được tính là “đang dùng”</span>","Chốt kế hoạch ≥1 lần / tuần."],
+      ["Retention metric<br><span class='gl'>chỉ số đo việc user quay lại</span>","<b>WAU</b> (số HS hoạt động/tuần) + <b>weekly cohort retention (W1, W4)</b>; stickiness <b>WAU/MAU</b>."],
       ["Vì sao phù hợp frequency","Học sinh không kiểm tra mỗi ngày → ép daily retention sẽ làm sản phẩm trông “thất bại” một cách sai lệch. Cửa sổ tuần phản ánh đúng lần xuất hiện tự nhiên kế tiếp của vấn đề."]
     ])
     +'<div class="banner info"><span class="bi">📌</span><div>Mùa thi có thể đo thêm theo ngày (DAU) như chỉ số phụ, nhưng <b>metric retention chính vẫn theo tuần</b>.</div></div>'
@@ -864,9 +870,9 @@ function sR4(){
       ["Số bước tới first core action","6 bước (3 onboarding + chọn quiz + phân tích + chốt)"],
       ["Số trường thông tin phải nhập","0 (chỉ chọn quiz mẫu)"],
       ["Số permission phải cấp","1 (đọc quiz) — cấp quá sớm ở OB2"],
-      ["Time to First Core Action","~80–90 giây (ước tính)"],
-      ["Time to Value","~60 giây (thấy phân tích có lý do)"],
-      ["Điểm drop-off cao nhất","OB2 — cấp quyền trước khi thấy value"]
+      ["Time to First Core Action<br><span class='gl'>thời gian tới core action đầu tiên</span>","~80–90 giây (ước tính)"],
+      ["Time to Value<br><span class='gl'>thời gian tới khi nhận value</span>","~60 giây (thấy phân tích có lý do)"],
+      ["Điểm drop-off cao nhất<br><span class='gl'>nơi user rời bỏ nhiều nhất</span>","OB2 — cấp quyền trước khi thấy value"]
     ])
     +'<div class="note">Chưa có dữ liệu tracking thật — đây là <b>ước tính từ prototype</b>.</div>'
     +'<div class="row"><button class="btn primary" data-go="r5">Thiết kế lại onboarding →</button></div></div>';
@@ -914,11 +920,11 @@ function sR6(){
       ["Số bước tới core action","6","<b>4</b>","Bỏ màn “bắt đầu”, gộp value vào màn đầu."],
       ["Số trường phải nhập","0","0","Vốn đã tối thiểu."],
       ["Permission trước core action","Cấp ở OB2 (sớm)","<b>Hỏi đúng lúc</b> bấm phân tích","Giảm drop-off, tăng tin tưởng."],
-      ["Time to First Core Action","~85s","<b>~40s</b>","Ít bước hơn, value sớm hơn."],
-      ["Time to Value","~60s","<b>~30s</b>","Hiện chủ đề yếu mẫu ngay màn đầu."],
-      ["Điểm drop-off chính","Màn cấp quyền","Giảm rõ","Quyền hỏi sau khi đã thấy lợi ích."],
-      ["Evidence of value","Ở mục 03","<b>Ngay sau phân tích (02)</b>","Thấy lý do sớm → tin sớm."],
-      ["Recovery path","KB1 sửa tag","Giữ + thêm path từ chối quyền","Không kết ở màn lỗi."]
+      ["Time to First Core Action<br><span class='gl'>thời gian tới core action đầu tiên</span>","~85s","<b>~40s</b>","Ít bước hơn, value sớm hơn."],
+      ["Time to Value<br><span class='gl'>thời gian tới khi nhận value</span>","~60s","<b>~30s</b>","Hiện chủ đề yếu mẫu ngay màn đầu."],
+      ["Điểm drop-off chính<br><span class='gl'>nơi user rời bỏ nhiều nhất</span>","Màn cấp quyền","Giảm rõ","Quyền hỏi sau khi đã thấy lợi ích."],
+      ["Evidence of value<br><span class='gl'>bằng chứng cho thấy value</span>","Ở mục 03","<b>Ngay sau phân tích (02)</b>","Thấy lý do sớm → tin sớm."],
+      ["Recovery path<br><span class='gl'>đường đưa user quay lại mục tiêu</span>","KB1 sửa tag","Giữ + thêm path từ chối quyền","Không kết ở màn lỗi."]
     ],"three")
     +'<h3 class="blk">Recovery path (chọn: user từ chối permission)</h3>'
     +flow([
@@ -963,8 +969,8 @@ function sR8(){
       {b:"Mid/Long-term",s:"điểm số cải thiện · giữ chân theo học kỳ (customer value)"}
     ])
     +tbl(["","Chỉ số"],[
-      ["Leading indicator","Activation rate, completion, NSM (báo trước)."],
-      ["Lagging indicator","Điểm số cải thiện, retention theo học kỳ (đến sau)."]
+      ["Leading indicator<br><span class='gl'>chỉ số báo trước (đo sớm)</span>","Activation rate, completion, NSM (báo trước)."],
+      ["Lagging indicator<br><span class='gl'>chỉ số đến sau (kết quả)</span>","Điểm số cải thiện, retention theo học kỳ (đến sau)."]
     ])
     +'<div class="banner warn"><span class="bi">⚖️</span><div><b>Trade-off cần theo dõi:</b> để đẩy NSM, có thể gửi nhắc dày → tăng lượt mở ngắn hạn nhưng <b>giảm niềm tin &amp; chất lượng engagement</b> (giống tăng vị trí quảng cáo làm tăng revenue nhưng giảm trải nghiệm).</div>'
     +'</div><div class="row"><button class="btn primary" data-go="r9">Nature vs Nurture →</button></div></div>';
@@ -975,9 +981,9 @@ function sR9(){
   return d20head("09","NATURE vs NURTURE","Nhịp tự nhiên &amp; cách nuôi nhịp",
     "Nature = nhịp nhu cầu thật (theo bài kiểm tra). Nurture = việc sản phẩm chủ động làm để nuôi nhịp đó — <b>không tạo nhu cầu từ số 0</b>.")
     +tbl(["Nội dung","Câu trả lời"],[
-      ["Natural frequency của use case","Weekly theo nhịp kiểm tra; cao hơn vào mùa thi."],
-      ["Internal trigger","Cảm giác lo “mình yếu phần nào” ngay sau khi nhận điểm / trước kỳ thi."],
-      ["External trigger hiện có","Thông báo khi có bài quiz mới chấm: “Xem chỗ yếu của bài vừa rồi?”; nhắc trước kỳ kiểm tra."],
+      ["Natural frequency của use case<br><span class='gl'>nhịp tự nhiên của nhu cầu</span>","Weekly theo nhịp kiểm tra; cao hơn vào mùa thi."],
+      ["Internal trigger<br><span class='gl'>cảm xúc bên trong khiến user tự tìm tới</span>","Cảm giác lo “mình yếu phần nào” ngay sau khi nhận điểm / trước kỳ thi."],
+      ["External trigger hiện có<br><span class='gl'>tác nhân bên ngoài nhắc user</span>","Thông báo khi có bài quiz mới chấm: “Xem chỗ yếu của bài vừa rồi?”; nhắc trước kỳ kiểm tra."],
       ["Một hoạt động nurture phù hợp","Nhắc đúng <b>sau khi có kết quả kiểm tra</b> + tóm tắt tiến bộ cuối tuần."],
       ["Vì sao không quá dày/thưa","Kiểm tra ~weekly → nhắc theo sự kiện “có bài mới”, không nhắc hằng ngày (không có data mới → gây phiền, mất tin)."],
       ["Metric theo dõi tác động","Tỉ lệ mở-từ-nhắc → core action; WAU."]
@@ -995,14 +1001,14 @@ function sR10(){
       ["Why Habit?","Hình thành thói quen “sau mỗi bài kiểm tra → ôn đúng chỗ yếu” giúp cải thiện điểm bền vững; với sản phẩm → retention."],
       ["Intended Behavior","Phân tích bài quiz vừa làm &amp; chốt kế hoạch ôn."],
       ["Frequency &amp; Utility","Weekly theo kiểm tra; utility cao (tiết kiệm thời gian, bớt lo). Đủ để tạo habit theo sự kiện."],
-      ["Internal Trigger","Lo/bất an “không biết mình yếu gì” sau khi làm bài."],
-      ["External Trigger","Thông báo “Bài kiểm tra vừa chấm — xem chỗ yếu?” (owned / relationship)."],
-      ["Action","Chốt kế hoạch ôn (chấp nhận/chỉnh) — hành vi đơn giản nhất để nhận reward."],
-      ["Motivation","Muốn điểm cao hơn, đỡ lo, tiết kiệm thời gian."],
-      ["Ability","Giảm rào cản: không nhập liệu, kết quả 1 chạm, giải thích dễ hiểu (rào cản chính: brain cycles, time)."],
-      ["Variable Reward","<b>The Self</b> (thấy tiến bộ, làm chủ chỗ yếu) + <b>The Hunt</b> (khám phá đúng chỗ yếu thật qua “xem câu sai liên quan”)."],
-      ["Investment","Chỉnh kế hoạch, sửa tag sai, đánh dấu “đã ôn” → AI nhớ → lần sau cá nhân hoá hơn."],
-      ["Next Trigger","Bài kiểm tra kế tiếp + nhắc “ôn lại trước kiểm tra” dựa trên lịch sử đã lưu."],
+      ["Internal Trigger<br><span class='gl'>cảm xúc bên trong khiến user tự tìm tới</span>","Lo/bất an “không biết mình yếu gì” sau khi làm bài."],
+      ["External Trigger<br><span class='gl'>tác nhân bên ngoài nhắc user</span>","Thông báo “Bài kiểm tra vừa chấm — xem chỗ yếu?” (owned / relationship)."],
+      ["Action<br><span class='gl'>hành vi đơn giản nhất để nhận thưởng</span>","Chốt kế hoạch ôn (chấp nhận/chỉnh) — hành vi đơn giản nhất để nhận reward."],
+      ["Motivation<br><span class='gl'>động lực muốn làm</span>","Muốn điểm cao hơn, đỡ lo, tiết kiệm thời gian."],
+      ["Ability<br><span class='gl'>độ dễ thực hiện</span>","Giảm rào cản: không nhập liệu, kết quả 1 chạm, giải thích dễ hiểu (rào cản chính: brain cycles, time)."],
+      ["Variable Reward<br><span class='gl'>phần thưởng có yếu tố bất ngờ</span>","<b>The Self</b> (thấy tiến bộ, làm chủ chỗ yếu) + <b>The Hunt</b> (khám phá đúng chỗ yếu thật qua “xem câu sai liên quan”)."],
+      ["Investment<br><span class='gl'>công sức user bỏ vào → kéo họ quay lại</span>","Chỉnh kế hoạch, sửa tag sai, đánh dấu “đã ôn” → AI nhớ → lần sau cá nhân hoá hơn."],
+      ["Next Trigger<br><span class='gl'>cái khởi động vòng lặp kế tiếp</span>","Bài kiểm tra kế tiếp + nhắc “ôn lại trước kiểm tra” dựa trên lịch sử đã lưu."],
       ["User Impact","Có lợi thật (ôn hiệu quả), không gây nghiện vô bổ; không ép habit hằng ngày vì frequency weekly."]
     ])
     +'<h3 class="blk">Hook flow (sửa trực tiếp trên prototype)</h3>'
@@ -1078,13 +1084,81 @@ function sR12(){
   return body;
 }
 
+/* rg — Thuật ngữ (giải thích cho lúc present) */
+function sRG(){
+  return d20head("📖","THUẬT NGỮ","Giải thích nhanh các khái niệm Day 20",
+    "Mỗi thuật ngữ kèm nghĩa dễ hiểu &amp; ví dụ ngay trong sản phẩm “Ôn Đúng Chỗ Yếu” — để cả lớp cùng theo được khi present.")
+    +'<h3 class="blk">Use case &amp; người dùng (mục 01)</h3>'
+    +tbl(["Thuật ngữ","Nghĩa dễ hiểu + ví dụ trong sản phẩm"],[
+      ["Use case","Tình huống/công việc cụ thể user cần giải quyết. <i>VD: ôn lại đúng chỗ yếu sau một bài quiz.</i>"],
+      ["Persona","Chân dung người dùng điển hình. <i>VD: học sinh cấp 3 tự ôn ở nhà.</i>"],
+      ["Anti-persona","Người <b>không</b> phải đối tượng — nêu ra để không trộn dữ liệu nhầm. <i>VD: giáo viên, bạn đã giỏi đều.</i>"],
+      ["The Why","Động lực / kết quả thật user muốn (không phải “có app”). <i>VD: điểm cao hơn, bớt lo trước thi.</i>"],
+      ["The Alternative","Cách user đang tự xoay xở khi chưa có sản phẩm. <i>VD: tự dò bài, hỏi bạn/thầy.</i>"],
+      ["Natural frequency","Tần suất <b>tự nhiên</b> vấn đề xuất hiện. <i>VD: weekly — theo nhịp bài kiểm tra.</i>"]
+    ])
+    +'<h3 class="blk">Core action &amp; chỉ số giữ chân (mục 02–03)</h3>'
+    +tbl(["Thuật ngữ","Nghĩa dễ hiểu + ví dụ"],[
+      ["Core action","Hành vi cho thấy user <b>thực sự nhận được value</b> (không phải mọi click). <i>VD: chốt kế hoạch ôn.</i>"],
+      ["Active user","User được tính là “đang hoạt động” theo định nghĩa của nhóm. <i>VD: chốt ≥1 kế hoạch/tuần.</i>"],
+      ["Retention","Sau một thời gian, còn bao nhiêu user <b>quay lại</b> dùng tiếp."],
+      ["DAU / WAU / MAU","Số user hoạt động mỗi <b>ngày / tuần / tháng</b>. (Sản phẩm này dùng <b>WAU</b>.)"],
+      ["Cohort retention","Theo dõi một <b>nhóm cùng vào</b> một thời điểm, xem còn lại bao nhiêu sau W1, W4…"],
+      ["Stickiness (DAU/MAU)","Độ “dính” — user quay lại đều đặn tới mức nào."]
+    ])
+    +'<h3 class="blk">Onboarding &amp; activation (mục 04–06)</h3>'
+    +tbl(["Thuật ngữ","Nghĩa dễ hiểu + ví dụ"],[
+      ["Onboarding","Trải nghiệm <b>lần đầu</b> dùng tính năng."],
+      ["First core action","Lần đầu user làm core action."],
+      ["Aha moment","Khoảnh khắc user thấy “ồ, hữu ích thật”. <i>VD: thấy chỗ yếu kèm lý do “câu 2, 5, 9”.</i>"],
+      ["Activation","Thời điểm user <b>lần đầu thực sự nhận giá trị</b>. <i>VD: chốt kế hoạch ôn đầu tiên.</i>"],
+      ["Activation rate","% user mới đạt được activation."],
+      ["Time to First Core Action (TTFCA)","Thời gian từ lúc bắt đầu onboarding → core action đầu tiên."],
+      ["Time to Value (TTV)","Thời gian từ lúc vào sản phẩm → nhận first value."],
+      ["Friction","Điểm gây cản trở/khó chịu khiến user dễ bỏ cuộc."],
+      ["Keep / Remove / Delay / Simplify","4 nhãn audit mỗi bước onboarding: giữ / bỏ / hoãn tới sau / làm gọn lại."],
+      ["Drop-off","Điểm user rời bỏ nhiều nhất."],
+      ["Recovery path","Đường đưa user <b>quay lại mục tiêu</b> khi gặp lỗi/từ chối — không kết ở màn lỗi."]
+    ])
+    +'<h3 class="blk">Measurement &amp; North Star (mục 07–08)</h3>'
+    +tbl(["Thuật ngữ","Nghĩa dễ hiểu + ví dụ"],[
+      ["Measurement Ladder","“Thang” các bậc chỉ số: Traffic → Visitor → Activation → Core Action → Retention → Revenue."],
+      ["North Star Metric (NSM)","Chỉ số <b>cốt lõi</b> phản ánh value chính. <i>VD: số kế hoạch ôn được chốt mỗi tuần.</i>"],
+      ["Input Metrics","Vài chỉ số nhỏ <b>tác động tới</b> NSM (đòn bẩy để cải thiện NSM)."],
+      ["Leading indicator","Chỉ số <b>báo trước</b> (đo sớm). <i>VD: activation rate.</i>"],
+      ["Lagging indicator","Chỉ số <b>đến sau</b>, là kết quả. <i>VD: điểm số cải thiện.</i>"],
+      ["Trade-off","Sự đánh đổi. <i>VD: nhắc dày tăng lượt mở nhưng giảm niềm tin.</i>"],
+      ["Vanity metric","Chỉ số “đẹp mà vô nghĩa”, không gắn value thật. <i>VD: chỉ đếm lượt mở app.</i>"]
+    ])
+    +'<h3 class="blk">Nature, Nurture &amp; Hook Model (mục 09–10)</h3>'
+    +tbl(["Thuật ngữ","Nghĩa dễ hiểu + ví dụ"],[
+      ["Nature","Nhịp nhu cầu <b>tự nhiên</b> của user (không do sản phẩm tạo ra)."],
+      ["Nurture","Việc sản phẩm <b>chủ động làm</b> để nuôi nhịp đó (nhắc, email, content) — không tạo nhu cầu từ số 0."],
+      ["Internal trigger","Nhu cầu/cảm xúc <b>bên trong</b> khiến user tự tìm tới. <i>VD: lo “mình yếu gì”.</i>"],
+      ["External trigger","Tác nhân <b>bên ngoài</b> nhắc user. <i>VD: thông báo “xem chỗ yếu bài vừa rồi”.</i>"],
+      ["Hook Model","Mô hình tạo thói quen 4 bước: <b>Trigger → Action → Variable Reward → Investment</b>."],
+      ["Variable Reward","Phần thưởng có yếu tố <b>bất ngờ</b> — The Tribe (kết nối) / The Hunt (tìm kiếm) / The Self (tiến bộ)."],
+      ["Investment","Công sức user bỏ vào (sửa, đánh dấu…) làm tăng khả năng quay lại &amp; “nạp” trigger lần sau."],
+      ["Motivation / Ability","Động lực / độ dễ thực hiện — action xảy ra khi đủ cả hai + có trigger."]
+    ])
+    +'<h3 class="blk">Tracking (mục 11)</h3>'
+    +tbl(["Thuật ngữ","Nghĩa dễ hiểu + ví dụ"],[
+      ["Event","Một hành vi/sự kiện được ghi lại. <i>VD: <code>plan_committed</code> khi chốt kế hoạch.</i>"],
+      ["Property","Dữ liệu kèm theo event. <i>VD: số câu sai, đã chỉnh hay chưa.</i>"],
+      ["Segment","Nhóm user/use case để lọc khi phân tích metric."],
+      ["Dedup (tránh ghi trùng)","Không đếm lặp cùng một hành vi (refresh/retry không tạo event mới)."],
+      ["Acceptance criteria","Tiêu chí nghiệm thu để event/metric được coi là đúng."]
+    ])
+    +'<div class="row"><button class="btn primary" data-go="r1">Bắt đầu Retention Canvas →</button></div></div>';
+}
+
 /* ============================================================
    ROUTER
    ============================================================ */
 function render(){
   renderNav();
   const map={ "00":sec00,"01":sec01,"02":sec02,"03":sec03,"04":sec04,"05":sec05,"06":sec06,"07":sec07,
-    "r0":sR0,"r1":sR1,"r2":sR2,"r3":sR3,"r4":sR4,"r5":sR5,"r6":sR6,"r7":sR7,"r8":sR8,"r9":sR9,"r10":sR10,"r11":sR11,"r12":sR12 };
+    "r0":sR0,"rg":sRG,"r1":sR1,"r2":sR2,"r3":sR3,"r4":sR4,"r5":sR5,"r6":sR6,"r7":sR7,"r8":sR8,"r9":sR9,"r10":sR10,"r11":sR11,"r12":sR12 };
   screenEl.innerHTML = map[APP.section]();
   // rebind go-buttons inside content
   screenEl.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>goto(b.dataset.go));
