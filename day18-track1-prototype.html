@@ -613,11 +613,20 @@ function sec04(){
       +'<div class="fact">✔ Dữ kiện: bạn sai <b>Câu 3</b>.</div>'
       +'<div class="infer">~ AI xếp Câu 3 vào "Đại từ nhân xưng".</div>'
       +'<div class="qdetail open"><div class="mini"><b>Câu 3:</b> The woman ___ lives next door is a nurse.<br>Bạn chọn <span class="you">which</span> · Đáp án <span class="key">who</span></div></div></div>';
-    body+='<div class="banner warn"><span class="bi">🔎</span><div>Thực ra Câu 3 là <b>mệnh đề quan hệ</b> (who/which/that), không phải đại từ nhân xưng. Bạn phát hiện AI phân loại sai.</div></div>';
-    body+='<div class="banner info"><span class="bi">✏️</span><div style="flex:1"><b>Sửa chủ đề cho Câu 3:</b><div class="row" style="margin-top:10px">'
-      +'<button class="btn primary sm" data-f1fix="Mệnh đề quan hệ">Đổi sang "Mệnh đề quan hệ"</button>'
-      +'<button class="btn ghost sm" data-f1fix="Câu điều kiện loại 2">Đổi sang "Câu điều kiện loại 2"</button></div>'
-      +'<div style="font-size:12px;color:var(--muted);margin-top:8px">Đây là <b>explicit user feedback</b> chỉ ra <i>loại lỗi</i>, không chỉ là nút "không thích".</div></div></div>';
+    body+='<div class="banner warn"><span class="bi">🔎</span><div><b>Vấn đề thật:</b> bạn vừa làm <i>sai</i> chính Câu 3 — nên có thể bạn cũng chưa chắc nó thuộc chủ đề gì. AI <b>không bắt bạn tự nhớ</b> mà cho bạn đối chiếu bằng chứng.</div></div>';
+    body+='<div class="banner info"><span class="bi">📖</span><div><b>Đối chiếu với đáp án đúng (bằng chứng):</b> từ cần điền là <span class="key">who</span> — đại từ quan hệ chỉ người, đứng ngay sau “the woman” để mở đầu mệnh đề bổ nghĩa. Vậy Câu 3 thuộc <b>Mệnh đề quan hệ</b>, không phải “Đại từ nhân xưng”.</div></div>';
+    body+='<div class="banner warn"><span class="bi">✏️</span><div style="flex:1"><b>Theo bằng chứng trên, chủ đề đúng của Câu 3 là?</b><div class="row" style="margin-top:10px">'
+      +'<button class="btn primary sm" data-f1fix="Mệnh đề quan hệ">Đúng — đổi sang “Mệnh đề quan hệ”</button>'
+      +'<button class="btn ghost sm" data-f1unsure="1">Mình vẫn không chắc → hỏi giáo viên</button></div>'
+      +'<div style="font-size:12px;color:var(--muted);margin-top:8px">Học sinh sửa dựa trên <b>đáp án</b> (bằng chứng có sẵn), không dựa trí nhớ đang yếu — và luôn có lối thoát khi chưa chắc.</div></div></div>';
+  } else if(f1.stage==="unsure"){
+    body+='<div class="banner ok"><span class="bi">🤝</span><div><b>Cả AI lẫn bạn đều chưa chắc → AI KHÔNG tự khoá một phân loại có thể sai.</b> Câu 3 được giữ ở mức <i>“chưa chắc”</i> và <b>đánh dấu để hỏi giáo viên</b>. AI không “học” một sửa-sai từ phỏng đoán.</div></div>';
+    body+='<div class="weak unsure"><div class="wh"><span class="wname">Mệnh đề quan hệ? <span style="font-size:12px;color:var(--amber)">· chưa chắc, chờ xác nhận</span></span><span class="prio mid">Ưu tiên vừa</span></div>'
+      +'<div class="fact">✔ Dữ kiện: bạn sai Câu 3.</div>'
+      +'<div class="infer">~ Vì cả hai chưa chắc, AI vẫn đưa Câu 3 vào kế hoạch ôn (mơ hồ cũng là chỗ cần ôn) nhưng ghi rõ đây là phỏng đoán.</div></div>';
+    body+='<div class="banner info"><span class="bi">🎯</span><div style="flex:1"><b>Khôi phục không bế tắc:</b> bạn vẫn ôn được phần này; sau khi hỏi giáo viên, quay lại xác nhận để AI chốt đúng.<div class="row" style="margin-top:10px">'
+      +'<button class="btn primary sm" data-f1fix="Mệnh đề quan hệ">Mình đã hỏi — đúng là Mệnh đề quan hệ</button>'
+      +'<button class="btn ghost sm" data-f1reset="1">↺ Chạy lại kịch bản 1</button></div></div></div>';
   } else {
     body+='<div class="banner ok"><span class="bi">✓</span><div><b>Hệ thống đã hiểu:</b> Câu 3 thuộc <b>"Mệnh đề quan hệ"</b>, không phải "Đại từ nhân xưng". AI đã gộp lại và <b>tính lại kế hoạch ôn</b>.</div></div>';
     body+='<div class="weak"><div class="wh"><span class="wname">Mệnh đề quan hệ</span><span class="prio hi">Ưu tiên cao</span></div>'
@@ -635,9 +644,9 @@ function sec04(){
   }
   body+=rcard("Kịch bản 1 — sửa phân loại sai",[
     ["Điều gì sai","AI gán câu sai vào nhầm chủ đề → kế hoạch lệch."],
-    ["Dễ phát hiện?","Có — câu hỏi hiển thị ngay cạnh tag, người học đối chiếu được."],
-    ["Khôi phục","Người dùng đổi tag → hệ thống xác nhận → tính lại kế hoạch."],
-    ["Feedback thu được","Loại lỗi cụ thể + cho phép người dùng chọn AI có nhớ hay không."]
+    ["Bẫy cần tránh","Học sinh vừa làm sai chính câu đó → có thể cũng không biết chủ đề đúng. Không bắt họ tự phân loại từ trí nhớ."],
+    ["Cách sửa","Cho đối chiếu <b>đáp án + giải thích</b> (bằng chứng có sẵn) để sửa từ chứng cứ; có lối thoát “chưa chắc → hỏi giáo viên”."],
+    ["Không tin mù feedback","Khi cả AI lẫn người dùng đều chưa chắc, AI giữ mức “chưa chắc” thay vì khoá một sửa-sai (đánh giá của user ≠ sự thật chuẩn)."]
   ]);
 
   /* ---- Scenario 2: nhắc việc đã ôn rồi ---- */
@@ -662,6 +671,7 @@ function sec04(){
 }
 function bind04(){
   document.querySelectorAll('[data-f1fix]').forEach(b=>b.onclick=()=>{APP.f1.stage="fixed";toast('Đã đổi Câu 3 → "'+b.dataset.f1fix+'"');render();});
+  document.querySelectorAll('[data-f1unsure]').forEach(b=>b.onclick=()=>{APP.f1.stage="unsure";toast("Đã đánh dấu để hỏi giáo viên");render();});
   document.querySelectorAll('[data-f1mem]').forEach(b=>b.onclick=()=>{APP.f1.remember=b.dataset.f1mem==="reset"?null:b.dataset.f1mem;render();});
   document.querySelectorAll('[data-f1reset]').forEach(b=>b.onclick=()=>{APP.f1.stage="show";APP.f1.remember=null;render();});
   document.querySelectorAll('[data-f2]').forEach(b=>b.onclick=()=>{APP.f2.stage="stopped";APP.f2.reason=b.dataset.f2;toast("Đã dừng nhắc chủ đề này");render();});
